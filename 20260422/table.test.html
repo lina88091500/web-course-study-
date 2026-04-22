@@ -1,44 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Document</title>
+    <meta charset="UTF-8">
+    <title>可愛風課表</title>
+    <style>
+        /* 1. 設定全網頁字體與背景 */
+        body {
+            /* 使用微軟正黑體，並設定為粗體會看起來比較圓潤可愛 */
+            font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+            background-color: #fffaf0; /* 淡淡的奶油色背景 */
+            color: #555;
+        }
 
-     <h3>Table 課表創建練習</h3>
+        h3 {
+            text-align: center;
+            color: #ff9999; /* 粉粉的標題顏色 */
+            font-size: 28px;
+            letter-spacing: 5px; /* 字跟字分開一點比較可愛 */
+        }
 
-     <style>
-          /*讓<h3>標題置中*/
-          h3 {
-               text-align: center;
-               color: #333;/
-               /*更改標題顏色*/
-          }
+        /* 2. 表格樣式（保持你要的雙線框效果） */
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: separate; 
+            border-spacing: 8px; /* 加大間距，看起來比較活潑 */
+            background-color: white;
+            border-radius: 15px; /* 讓表格角落圓圓的 */
+        }
 
-          table, th, td {
-          border: 1px solid black;
-          border-collapse: separate; /* 確保邊框分開 */
-     }
+        table, td {
+            border: 2px solid #ffb6c1; /* 把框線改成粉紅色 */
+        }
 
-     table {
-          width: 80%;
-          text-align: center;
-          margin: 20px auto;
-          border-spacing: 5px; /* 調整格子間的縫隙，做出圖片感 */
-     }
+        td {
+            padding: 12px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold; /* 字體加粗，線條會比較圓 */
+            border-radius: 8px; /* 格子也給它一點點圓角 */
+        }
 
-     td {
-          padding: 10px;
-     }
-</style>
-
+        /* 3. 滑鼠滑過時的特效（加分用） */
+        td:hover {
+            background-color: #ffe4e1; /* 滑鼠移上去會變色 */
+            transform: scale(1.05);    /* 稍微放大一點點 */
+            transition: 0.3s;
+        }
+    </style>
 </head>
-
-
 <body>
-     <table>
-          <tr>
+
+    <h3>🌸 Table 課表創建練習 🌸</h3>
+
+    <table>
+         <tr>
                <td>節數</td>
                <td>一</td>
                <td>二</td>
@@ -181,8 +197,7 @@
                     劉展華<br>
                </td>
           </tr>
-     </table>
+    </table>
 
 </body>
-
 </html>
