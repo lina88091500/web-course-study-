@@ -6,46 +6,61 @@
     <style>
         /* 1. 設定全網頁字體與背景 */
         body {
-            /* 使用微軟正黑體，並設定為粗體會看起來比較圓潤可愛 */
             font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
-            background-color: #fffaf0; /* 淡淡的奶油色背景 */
+            background-color: #fffaf0; 
             color: #555;
         }
 
         h3 {
             text-align: center;
-            color: #ff9999; /* 粉粉的標題顏色 */
+            color: #ff9999; 
             font-size: 28px;
-            letter-spacing: 5px; /* 字跟字分開一點比較可愛 */
+            letter-spacing: 5px; 
         }
 
-        /* 2. 表格樣式（保持你要的雙線框效果） */
+        /* 2. 表格樣式 */
         table {
             width: 80%;
             margin: 20px auto;
             border-collapse: separate; 
-            border-spacing: 8px; /* 加大間距，看起來比較活潑 */
+            border-spacing: 8px; 
             background-color: white;
-            border-radius: 15px; /* 讓表格角落圓圓的 */
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* 增加一點點陰影更有質感 */
         }
 
         table, td {
-            border: 2px solid #ffb6c1; /* 把框線改成粉紅色 */
+            border: 2px solid #ffb6c1; 
         }
 
         td {
-            padding: 12px;
+            padding: 15px 10px; /* 增加上下間距 */
             text-align: center;
-            font-size: 18px;
-            font-weight: bold; /* 字體加粗，線條會比較圓 */
-            border-radius: 8px; /* 格子也給它一點點圓角 */
+            font-size: 14px;    /* 這裡是老師名字跟時間的大小 */
+            font-weight: normal; 
+            border-radius: 10px;
+            line-height: 1.6;   /* 讓行距拉開，更清楚 */
         }
 
-        /* 3. 滑鼠滑過時的特效（加分用） */
+        /* ⭐ 關鍵改動：讓每一格的第一行（課名）自動加大加粗 */
+        td::first-line {
+            font-size: 22px;    /* 課名加大 */
+            font-weight: 900;   /* 課名特粗 */
+            color: #d147a3;     /* 課名換成深粉色，更亮眼 */
+        }
+
+        /* 3. 滑鼠滑過特效 */
         td:hover {
-            background-color: #ffe4e1; /* 滑鼠移上去會變色 */
-            transform: scale(1.05);    /* 稍微放大一點點 */
+            background-color: #ffe4e1; 
+            transform: scale(1.03); 
             transition: 0.3s;
+            cursor: pointer;
+        }
+
+        /* 讓第一列（節數、一二三四五）顏色特別一點 */
+        tr:first-child td {
+            background-color: #fff0f5;
+            color: #ff69b4;
         }
     </style>
 </head>
@@ -54,7 +69,7 @@
     <h3>🌸 Table 課表創建練習 🌸</h3>
 
     <table>
-         <tr>
+          <tr>
                <td>節數</td>
                <td>一</td>
                <td>二</td>
@@ -64,137 +79,128 @@
           </tr>
           <tr>
                <td>早自習<br>
-                    0750~0830<br>
+                    0750~0830
                </td>
-               <td colspan="5">
-
-               </td>
-               <!-- <td rowspan="2">
-                    6
-               </td> -->
+               <td colspan="5"></td>
           </tr>
           <tr>
                <td>第一節<br>
-                    0840~0920<br>
+                    0840~0920
                </td>
                <td rowspan="2">
                     國語<br>
-                    劉展華<br>
+                    劉展華
                </td>
                <td colspan="3">
                     數學<br>
-                    劉展華<br>
+                    劉展華
                </td>
                <td>國語<br>
-                    劉展華<br>
+                    劉展華
                </td>
           </tr>
           <tr>
                <td>第二節<br>
-                    0930~1010<br>
+                    0930~1010
                </td>
                <td>自然<br>
-                    黃新民<br>
+                    黃新民
                </td>
                <td>音樂<br>
-                    萬巧如<br>
+                    萬巧如
                </td>
                <td>國語<br>
-                    劉展華<br>
+                    劉展華
                </td>
                <td>彈性<br>
-                    劉展華<br>
+                    劉展華
                </td>
           </tr>
           <tr>
                <td>第三節<br>
-                    1030~1110<br>
+                    1030~1110
                </td>
                <td>數學<br>
-                    劉展華<br>
+                    劉展華
                </td>
                <td>健康<br>
-                    潘文欽<br>
+                    潘文欽
                </td>
                <td>國語<br>
-                    劉展華<br>
+                    劉展華
                </td>
                <td>鄉土<br>
-                    魏士欽<br>
+                    魏士欽
                </td>
                <td rowspan="2">
                     自然<br>
-                    黃新民<br>
+                    黃新民
                </td>
           </tr>
           <tr>
                <td>第四節<br>
-                    1120~1200<br>
+                    1120~1200
                </td>
                <td>英語<br>
-                    黃定宜<br>
+                    黃定宜
                </td>
                <td>彈性<br>
-                    劉展華<br>
+                    劉展華
                </td>
                <td>社會<br>
-                    劉展華<br>
+                    劉展華
                </td>
                <td>英語<br>
-                    黃定宜<br>
+                    黃定宜
                </td>
           </tr>
           <tr>
                <td>午休時間<br>
-                    1200~1320<br>
+                    1200~1320
                </td>
-               <td colspan="5">
-
-               </td>
+               <td colspan="5"></td>
           </tr>
           <tr>
                <td>第五節<br>
-                    1330~1410<br>
+                    1330~1410
                </td>
                <td>社會<br>
-                    劉展華<br>
+                    劉展華
                </td>
                <td rowspan="2">
                     美勞<br>
-                    許文杰<br>
+                    許文杰
                </td>
-               <td rowspan="3">
-
-               </td>
+               <td rowspan="3"></td>
                <td rowspan="3">
                     綜合<br>
-                    劉展華<br>
+                    劉展華
                </td>
                <td>體育<br>
-                    潘文欽<br>
+                    潘文欽
                </td>
           </tr>
           <tr>
                <td>第六節<br>
-                    1420~1500<br>
+                    1420~1500
                </td>
                <td>體育<br>
-                    潘文欽<br>
+                    潘文欽
                </td>
                <td>國語<br>
-                    劉展華<br>
+                    劉展華
                </td>
           </tr>
           <tr>
                <td>第七節<br>
-                    1520~1600<br>
+                    1520~1600
                </td>
                <td colspan="2">
                     彈性<br>
-                    劉展華<br>
+                    劉展華
                </td>
                <td>社會<br>
-                    劉展華<br>
+                    劉展華
                </td>
           </tr>
     </table>
