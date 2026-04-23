@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>form表單</title>
+     <style>
+          * {
+               box-sizing: border-box;
+               margin: 0;
+               padding: 0;
+               font-family: "Microsoft JhengHei", sans-serif;
+          }
+
+          body {
+               background: linear-gradient(120deg, #fff1eb 0%, #ace0f9 100%);
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               min-height: 100vh;
+               padding: 20px;
+          }
+
+          /* 圖片裝飾樣式 */
+          .corner-img {
+               position: fixed;
+               bottom: 20px;
+               width: 120px;
+               height: auto;
+               z-index: 100;
+               pointer-events: none;
+               mix-blend-mode: multiply;
+          }
+
+          .img-right {
+               right: 20px;
+          }
+
+          .img-left {
+               left: 20px;
+               transform: scaleX(-1);
+          }
+
+          /* 表單卡片 */
+          .mini-form-card {
+               background: rgba(255, 255, 255, 0.9);
+               padding: 25px;
+               border-radius: 20px;
+               box-shadow: 0 10px 25px rgba(255, 182, 193, 0.3);
+               width: 380px;
+               /* 稍微加大寬度以容納表格 */
+               backdrop-filter: blur(5px);
+               position: relative;
+               z-index: 10;
+          }
+
+          /* 表格樣式 */
+          table {
+               width: 100%;
+               border-collapse: collapse;
+               margin-top: 10px;
+          }
+
+          td {
+               padding: 8px 0;
+               vertical-align: middle;
+          }
+
+          /* 讓 label 欄位縮小一點 */
+          td:first-child {
+               width: 30%;
+               font-size: 13px;
+               color: #666;
+               font-weight: bold;
+          }
+
+          h3 {
+               text-align: left;
+               color: #ff9a9e;
+               margin-bottom: 20px;
+               font-size: 1.3rem;
+               border-left: 4px solid #ff9a9e;
+               padding-left: 10px;
+          }
+
+          fieldset {
+               border: none;
+               text-align: left;
+          }
+
+          legend {
+               color: #a18cd1;
+               font-weight: bold;
+               font-size: 14px;
+               margin-bottom: 10px;
+          }
+
+          input[type="text"],
+          input[type="number"],
+          input[type="date"],
+          select,
+          textarea {
+               width: 100%;
+               padding: 8px 12px;
+               border: 1px solid #fce4ec;
+               border-radius: 10px;
+               background: #fff;
+               outline: none;
+               transition: 0.3s;
+               color: #555;
+          }
+
+          input:focus,
+          select:focus,
+          textarea:focus {
+               border-color: #ffb6c1;
+               background-color: #fff9fa;
+          }
+
+          input[type="radio"],
+          input[type="checkbox"] {
+               accent-color: #ff9a9e;
+               margin-right: 3px;
+               cursor: pointer;
+          }
+
+          label {
+               cursor: pointer;
+               margin-right: 8px;
+               font-size: 13px;
+          }
+
+          input[type="submit"] {
+               width: 100%;
+               padding: 12px;
+               background: #ffb6c1;
+               border: none;
+               border-radius: 25px;
+               color: white;
+               font-weight: bold;
+               cursor: pointer;
+               transition: 0.3s;
+               margin-top: 15px;
+          }
+
+          input[type="submit"]:hover {
+               background: #ff9a9e;
+          }
+     </style>
+</head>
+
+<body>
+     <div class="mini-form-card">
+          <h3>資料架設</h3>
+          <form action="">
+               <fieldset>
+                    <legend>基本資料</legend>
+
+                    <table>
+                         <tr>
+                              <td>姓名</td>
+                              <td><input type="text" name="name" placeholder="請輸入姓名"></td>
+                         </tr>
+                         <tr>
+                              <td>電話</td>
+                              <td><input type="text" name="phone" placeholder="請輸入電話"></td>
+                         </tr>
+                         <tr>
+                              <td>性別</td>
+                              <td>
+                                   <input type="radio" name="gender" value="男" id="male"><label for="male">男</label>
+                                   <input type="radio" name="gender" value="女" id="female"><label for="female">女</label>
+                              </td>
+                         </tr>
+                         <tr>
+                              <td>年齡</td>
+                              <td><input type="number" name="count" min="1" max="120"></td>
+                         </tr>
+                         <tr>
+                              <td>日期</td>
+                              <td><input type="date" name="birthdate"></td>
+                         </tr>
+                         <tr>
+                              <td>興趣</td>
+                              <td>
+                                   <input type="checkbox" name="hobby" value="閱讀" id="reading">
+                                   <label for="reading">閱讀</label>
+                                   <input type="checkbox" name="hobby" value="運動" id="sports">
+                                   <label for="sports">運動</label>
+                                   <input type="checkbox" name="hobby" value="音樂" id="music">
+                                   <label for="music">音樂</label>
+                                   <input type="checkbox" name="hobby" value="其他" id="other">
+                                   <label for="other">其他</label>
+                              </td>
+                         </tr>
+                         <tr>
+                              <td>城市</td>
+                              <td>
+                                   <select name="city">
+                                        <option value="台北">台北</option>
+                                        <option value="新北">新北</option>
+                                   </select>
+                              </td>
+                         </tr>
+                    </table>
+
+                    <p style="margin-top:15px;">
+                         <input type="file" name="file"><br>
+                         <small style="color:#999;">請上傳相關文件</small><br><br>
+                    </p>
+
+                    <p>
+                         <label>留言</label><br>
+                         <textarea name="message" rows="3" placeholder="請輸入留言"></textarea>
+                    </p>
+                    <input type="submit" value="送出">
+               </fieldset>
+          </form>
+     </div>
+</body>
+
+</html>
