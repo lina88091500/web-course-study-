@@ -4,8 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    
 </head>
 <body>
-    <h2>p1 page</h2>
-</body>
+    <style>
+    .back-home {
+        display: inline-block;
+        margin: 20px;
+        text-decoration: none;
+        color: #e0b0b0; /* 沿用你的灰粉色 */
+        font-size: 0.9rem;
+    }
+    .back-home:hover {
+        color: #ffb6c1;
+    }
+    /* 子頁面專屬：返回按鈕樣式 */
+.back-to-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 30px 0 30px 5%; /* 讓按鈕與內容對齊 */
+    text-decoration: none;
+    color: #b0b0b0; /* 平時是淡灰色 */
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+.back-to-home .arrow {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+/* 滑鼠移上去的效果 */
+.back-to-home:hover {
+    color: #e0b0b0; /* 變成灰粉色 */
+}
+
+.back-to-home:hover .arrow {
+    transform: translateX(-5px); /* 箭頭往左滑動一下 */
+}
+
+/* 為了讓子頁面也好看，建議子頁面背景也設為米粉色 */
+body {
+    background-color: #fcf8f8;
+    margin: 0;
+    padding: 0;
+}
+</style>
+
+<a href="../index.html" class="back-to-home">
+    <span class="arrow">←</span> 返回旅程首頁
+</a>
 </html>
