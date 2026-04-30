@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>進階字典工作台 - 經典動態回歸版</title>
+    <style>
+        /* 基礎背景與字體 - 升級漸層質感 */
+        body {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            font-family: "Segoe UI", "Microsoft JhengHei", sans-serif;
+            margin: 0;
+            padding: 0 0 60px 0;
+            scroll-behavior: smooth;
+        }
+
+        /* 搜尋區容器 - 強化毛玻璃與動態感 */
+        .header-section {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px); /* 為了 Safari */
+            padding: 25px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .current-word-display {
+            font-size: 14px;
+            color: #1565c0;
+            margin-bottom: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* 核心動態：搜尋框彈性縮放 */
+        input[type="text"] {
+            padding: 12px 25px;
+            width: 220px;
+            border: 2px solid #90caf9;
+            border-radius: 25px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.9);
+            /* 使用貝茲曲線，達成你喜歡的彈性縮放感 */
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        input[type="text"]:focus {
+            border-color: #1e88e5;
+            width: 380px; /* 聚焦時大幅變長 */
+            background: #fff;
+            box-shadow: 0 10px 25px rgba(30, 136, 229, 0.2);
+        }
+
+        input[type="submit"] {
+            padding: 12px 25px;
+            background: #1e88e5;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(30, 136, 229, 0.3);
+        }
+
+        input[type="submit"]:hover {
+            background: #0d47a1;
+            transform: translateY(-3px) scale(1.05); /* 向上浮起並微放大 */
+            box-shadow: 0 6px 20px rgba(13, 71, 161, 0.4);
+        }
+
+        /* 快速連結區 */
+        .quick-links {
+            margin-top: 15px;
+        }
+        .quick-btn {
+            background: #fff;
+            border: 1px solid #1e88e5;
+            padding: 6px 15px;
+            border-radius: 15px;
+            margin: 0 4px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #1e88e5;
+            transition: all 0.2s ease;
+        }
+        .quick-btn:hover {
+            background: #1e88e5;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 表格與卡片樣式 */
+        table {
+            width: 90%;
+            max-width: 1050px;
+            margin: 40px auto;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        td {
+            background: white;
+            padding: 25px;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        /* 讓整張卡片滑過時也有微浮動感 */
+        td:hover {
+            transform: translateY(-5px);
+        }
+
+        /* 字典標題列 - 加入外部連結排版 */
+        .dict-header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .dict-tag {
+            background: linear-gradient(90deg, #1e88e5, #42a5f5);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 0; /* 覆蓋原本的 margin */
+        }
+
+        /* 外部連結按鈕樣式 */
+        .export-link {
+            text-decoration: none;
+            color: #1e88e5;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 5px 12px;
+            border: 1px solid #1e88e5;
+            border-radius: 15px;
+            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .export-link:hover {
+            background: #1e88e5;
+            color: white;
+            transform: translateX(5px);
+        }
+
+        iframe {
+            width: 100%;
+            height: 65vh;
+            border: 1px solid #f1f1f1;
+            border-radius: 15px;
+        }
+
+        /* 回到頂部按鈕 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #1e88e5;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transition: 0.3s;
+            font-size: 20px;
+            z-index: 100;
+        }
+
+        .back-to-top:hover {
+            transform: scale(1.1) translateY(-5px);
+            background: #0d47a1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header-section">
+        <div class="current-word-display" id="statusText">目前正在查詢: apple</div>
+        <form onsubmit="handleSearch(event)">
+            <input type="text" id="wordInput" placeholder="輸入單字...">
+            <input type="submit" value="查詢">
+        </form>
+        <div class="quick-links">
+            <button class="quick-btn" onclick="updateDict('Science')">Science</button>
+            <button class="quick-btn" onclick="updateDict('Art')">Art</button>
+            <button class="quick-btn" onclick="updateDict('Music')">Music</button>
+            <a href="#wikiTable" class="quick-btn" style="text-decoration:none; background:#f0f0f0; border-color:#ccc; color:#666;">跳至維基</a>
+            <a href="#websterTable" class="quick-btn" style="text-decoration:none; background:#f0f0f0; border-color:#ccc; color:#666;">跳至韋伯</a>
+        </div>
+    </div>
+
+    <table id="wikiTable">
+        <tr>
+            <td>
+                <div class="dict-header-container">
+                    <div class="dict-tag">Wiktionary</div>
+                    <a id="linkWiki" href="https://zh.wiktionary.org/wiki/apple" target="_blank" class="export-link">外部網頁 ↗</a>
+                </div>
+                <iframe id="frameWiki" src="https://zh.wiktionary.org/wiki/apple"></iframe>
+            </td>
+        </tr>
+    </table>
+
+    <table id="websterTable">
+        <tr>
+            <td>
+                <div class="dict-header-container">
+                    <div class="dict-tag">Merriam-Webster</div>
+                    <a id="linkWebster" href="https://www.merriam-webster.com/dictionary/apple" target="_blank" class="export-link">外部網頁 ↗</a>
+                </div>
+                <iframe id="frameWebster" src="https://www.merriam-webster.com/dictionary/apple"></iframe>
+            </td>
+        </tr>
+    </table>
+
+    <a href="#" class="back-to-top">↑</a>
+
+    <script>
+        // 核心更新邏輯：同時同步 iframe 與外部連結網址
+        function updateDict(word) {
+            if (!word) return;
+            const w = word.trim();
+            
+            const wikiUrl = "https://zh.wiktionary.org/wiki/" + w;
+            const websterUrl = "https://www.merriam-webster.com/dictionary/" + w;
+
+            // 更新 Iframe
+            document.getElementById('frameWiki').src = wikiUrl;
+            document.getElementById('frameWebster').src = websterUrl;
+
+            // 更新外部連結
+            document.getElementById('linkWiki').href = wikiUrl;
+            document.getElementById('linkWebster').href = websterUrl;
+
+            document.getElementById('wordInput').value = w;
+            document.getElementById('statusText').innerText = "目前正在查詢: " + w;
+        }
+
+        function handleSearch(event) {
+            event.preventDefault();
+            const word = document.getElementById('wordInput').value;
+            updateDict(word);
+        }
+    </script>
+
+</body>
+
+</html>

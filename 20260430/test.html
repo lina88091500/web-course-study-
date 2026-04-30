@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字典搜尋版</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
+
+        body {
+            background-color: #f0f7f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            font-family: 'Noto Sans TC', sans-serif;
+            color: #333;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* 頂部固定區域 (主視窗 + 搜尋列) */
+        .header-sticky {
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background-color: #f0f7f9;
+            padding-bottom: 10px;
+        }
+
+        /* 主顯示區 (apple) */
+        .main-iframe-container {
+            height: 300px;
+            background-color: white;
+            border-radius: 16px;
+            padding: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e1e8ed;
+        }
+
+        .main-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 10px;
+        }
+
+        /* 搜尋索引區 */
+        .search-box-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 16px;
+            border-radius: 30px;
+            border: 2px solid #2da4ff;
+            outline: none;
+            box-sizing: border-box;
+            box-shadow: 0 4px 10px rgba(45, 164, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            box-shadow: 0 4px 15px rgba(45, 164, 255, 0.4);
+            transform: scale(1.01);
+        }
+
+        /* 列表樣式 */
+        .window-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .list-window-item {
+            background-color: white;
+            border-radius: 12px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid #e1e8ed;
+            transition: all 0.3s ease;
+        }
+
+        /* 搜尋不到時的提示 */
+        #no-results {
+            text-align: center;
+            padding: 20px;
+            color: #95a5a6;
+            display: none;
+        }
+
+        .list-window-item:hover {
+            transform: translateY(-3px);
+            border-color: #2da4ff;
+            background-color: #fafdff;
+        }
+
+        .window-text {
+            flex-grow: 1;
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .small-preview-iframe {
+            width: 80px;
+            height: 80px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            pointer-events: none; /* 防止點擊小窗 */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+
+        <div class="header-sticky">
+            <div class="main-iframe-container">
+                <iframe src="./content/pink.html" name="apple-frame" class="main-iframe" frameborder="0"></iframe>
+            </div>
+
+            <div class="search-box-container">
+                <input type="text" id="dictionarySearch" class="search-input" placeholder="🔍 輸入關鍵字搜尋索引 (例如: Pink, Blue...)" onkeyup="filterList()">
+            </div>
+        </div>
+
+        <div class="window-list" id="windowList">
+            
+            <a href="./content/pink.html" target="apple-frame" class="list-window-item" data-title="Pink 粉紅色視窗">
+                <div class="window-text">Pink 粉紅色視窗</div>
+                <iframe src="./content/pink.html" class="small-preview-iframe" frameborder="0"></iframe>
+            </a>
+
+            <a href="./content/blue.html" target="apple-frame" class="list-window-item" data-title="Blue 藍色視窗">
+                <div class="window-text">Blue 藍色視窗</div>
+                <iframe src="./content/blue.html" class="small-preview-iframe" frameborder="0"></iframe>
+            </a>
+
+            <a href="./content/green.html" target="apple-frame" class="list-window-item" data-title="Green 綠色視窗">
+                <div class="window-text">Green 綠色視窗</div>
+                <iframe src="./content/green.html" class="small-preview-iframe" frameborder="0"></iframe>
+            </a>
+
+            <a href="./content/apple.html" target="apple-frame" class="list-window-item" data-title="Apple 蘋果搜尋結果">
+                <div class="window-text">Apple 蘋果內容</div>
+                <iframe src="./content/apple.html" class="small-preview-iframe" frameborder="0"></iframe>
+            </a>
+
+            <div id="no-results">找不到符合的結果 😢</div>
+        </div>
+
+    </div>
+
+    <script>
+        function filterList() {
+            // 獲取搜尋關鍵字
+            const input = document.getElementById('dictionarySearch');
+            const filter = input.value.toUpperCase();
+            const list = document.getElementById('windowList');
+            const items = list.getElementsByClassName('list-window-item');
+            const noResults = document.getElementById('no-results');
+            let hasVisibleItem = false;
+
+            // 遍歷所有列表項，檢查標題是否包含關鍵字
+            for (let i = 0; i < items.length; i++) {
+                const title = items[i].getAttribute('data-title');
+                if (title.toUpperCase().indexOf(filter) > -1) {
+                    items[i].style.display = ""; // 顯示
+                    hasVisibleItem = true;
+                } else {
+                    items[i].style.display = "none"; // 隱藏
+                }
+            }
+
+            // 處理查無結果的情況
+            noResults.style.display = hasVisibleItem ? "none" : "block";
+        }
+    </script>
+
+</body>
+</html>
