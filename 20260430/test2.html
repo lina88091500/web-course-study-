@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全方位旅遊導航導航台</title>
+    <style>
+        /* 基礎背景：旅遊明亮風 */
+        body {
+            background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+            font-family: "Segoe UI", "Microsoft JhengHei", sans-serif;
+            margin: 0;
+            padding: 0 0 80px 0;
+            scroll-behavior: smooth;
+        }
+
+        /* 頂部固定導航：毛玻璃質感 */
+        .header-section {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            padding: 25px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .current-word-display {
+            font-size: 14px;
+            color: #243b53;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        /* 經典彈性搜尋框 */
+        input[type="text"] {
+            padding: 12px 25px;
+            width: 250px;
+            border: 2px solid #bcccdc;
+            border-radius: 30px;
+            outline: none;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        input[type="text"]:focus {
+            width: 450px;
+            border-color: #486581;
+            box-shadow: 0 10px 25px rgba(36, 59, 83, 0.15);
+        }
+
+        input[type="submit"] {
+            padding: 12px 30px;
+            background: #486581;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background: #243b53;
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        /* 快速導覽按鈕 */
+        .quick-links { margin-top: 15px; }
+        .quick-btn {
+            background: #fff;
+            border: 1px solid #486581;
+            padding: 6px 15px;
+            border-radius: 15px;
+            margin: 0 4px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #486581;
+            transition: 0.2s;
+        }
+
+        /* 卡片表格結構 */
+        table { width: 92%; max-width: 1100px; margin: 40px auto; border-collapse: separate; }
+        td { background: white; padding: 25px; border-radius: 25px; box-shadow: 0 15px 40px rgba(0,0,0,0.08); transition: 0.3s; }
+        td:hover { transform: translateY(-5px); }
+        
+        .dict-header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .dict-tag {
+            background: #486581;
+            color: white;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        iframe { width: 100%; height: 60vh; border: none; border-radius: 15px; background: #f9fafb; }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #486581;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header-section">
+        <div class="current-word-display" id="statusText">正在探索: 台北市</div>
+        <form onsubmit="handleSearch(event)">
+            <input type="text" id="wordInput" placeholder="輸入地區..." value="台北市">
+            <input type="submit" value="開始導覽">
+        </form>
+        <div class="quick-links">
+            <button class="quick-btn" onclick="updateDict('台南')">台南</button>
+            <button class="quick-btn" onclick="updateDict('東京')">東京</button>
+            <button class="quick-btn" onclick="updateDict('巴黎')">巴黎</button>
+        </div>
+    </div>
+
+    <!-- 區塊 1：維基百科（深度介紹） -->
+    <table id="wikiTable">
+        <tr>
+            <td>
+                <div class="dict-header-container">
+                    <div class="dict-tag">📖 維基百科：深度介紹</div>
+                    <a id="linkWiki" href="https://zh.wikipedia.org/wiki/台北市" target="_blank" style="font-size: 12px; color: #486581;">詳細頁面 ↗</a>
+                </div>
+                <iframe id="frameWiki" src="https://zh.wikipedia.org/wiki/台北市"></iframe>
+            </td>
+        </tr>
+    </table>
+
+    <!-- 區塊 2：熱門景點推薦 -->
+    <table id="spotTable">
+        <tr>
+            <td>
+                <div class="dict-header-container">
+                    <div class="dict-tag">📍 Google Maps：熱門景點</div>
+                    <a id="linkSpot" href="https://www.google.com/maps/search/台北市+景點" target="_blank" style="font-size: 12px; color: #486581;">地圖導航 ↗</a>
+                </div>
+                <iframe id="frameSpot" src="https://www.google.com/maps?q=台北市+景點&output=embed"></iframe>
+            </td>
+        </tr>
+    </table>
+
+    <!-- 區塊 3：美食探索 -->
+    <table id="foodTable">
+        <tr>
+            <td>
+                <div class="dict-header-container">
+                    <div class="dict-tag">🍴 網友點名：必吃美食</div>
+                    <a id="linkFood" href="https://www.google.com/maps/search/台北市+美食" target="_blank" style="font-size: 12px; color: #486581;">找餐廳 ↗</a>
+                </div>
+                <iframe id="frameFood" src="https://www.google.com/maps?q=台北市+美食&output=embed"></iframe>
+            </td>
+        </tr>
+    </table>
+
+    <a href="#" class="back-to-top">▲</a>
+
+    <script>
+        function updateDict(word) {
+            if (!word) return;
+            const w = word.trim();
+            
+            // 網址設定
+            const wikiUrl = "https://zh.wikipedia.org/wiki/" + w;
+            const spotEmbed = "https://www.google.com/maps?q=" + w + "+景點&output=embed";
+            const foodEmbed = "https://www.google.com/maps?q=" + w + "+美食&output=embed";
+            
+            const spotFull = "https://www.google.com/maps/search/" + w + "+景點";
+            const foodFull = "https://www.google.com/maps/search/" + w + "+美食";
+
+            // 同步更新 3 個 Iframe
+            document.getElementById('frameWiki').src = wikiUrl;
+            document.getElementById('frameSpot').src = spotEmbed;
+            document.getElementById('frameFood').src = foodEmbed;
+
+            // 同步更新 3 個外部連結
+            document.getElementById('linkWiki').href = wikiUrl;
+            document.getElementById('linkSpot').href = spotFull;
+            document.getElementById('linkFood').href = foodFull;
+
+            document.getElementById('wordInput').value = w;
+            document.getElementById('statusText').innerText = "正在探索: " + w;
+        }
+
+        function handleSearch(event) {
+            event.preventDefault();
+            const word = document.getElementById('wordInput').value;
+            updateDict(word);
+        }
+    </script>
+
+</body>
+
+</html>
