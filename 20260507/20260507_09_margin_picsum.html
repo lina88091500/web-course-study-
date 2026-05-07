@@ -1,36 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Document</title>
-     <style>
-          .box {
-            width: 300px;
-            height: 300px;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+
+
         }
 
         .box1 {
             background-color: lightblue;
-            margin-left: 110px;
-            margin-top: 20px;
-            margin-bottom: 50px;
+            margin-left: 100px;
         }
 
         /* margin 有衝突 採最大值 */
         .box2 {
-            margin-top: 30px;
             background-color: lightpink;
+            margin-left: 200px;
         }
-     </style>
+
+        .box3 {
+            background-color: lightyellow;
+            margin-left: 300px;
+        }
+
+        .box4 {
+            background-color: lightgreen;
+            margin-left: 400px;
+        }
+
+        img:hover {
+            transform: scale(1.2) rotate(5deg);
+            /* border-radius: 100px; */
+        }
+    </style>
 </head>
+
 <body>
-     <div class="box box1">
-
-     </div>
-     <div class="box box2">
-
-     </div>
-
+    <div class="box box1">
+        <img src="https://picsum.photos/id/36/100/100" alt="">
+    </div>
+    <div class="box box2">
+        <img src="https://picsum.photos/id/37/100/100" alt="">
+    </div>
+    <div class="box box3">
+        <img src="https://picsum.photos/id/18/100/100" alt="">
+    </div>
+    <div class="box box4">
+        <img src="https://picsum.photos/id/24/100/100" alt="">
+    </div>
+    <div class="box box3">
+        <img src="https://picsum.photos/id/14/100/100" alt="">
+    </div>
+    <div class="box box2">
+        <img src="https://picsum.photos/id/40/100/100" alt="">
+    </div>
+    <div class="box box1">
+        <img src="https://picsum.photos/id/11/100/100" alt="">
+    </div>
 </body>
+
 </html>
