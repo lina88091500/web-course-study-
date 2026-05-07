@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>永和豆漿大王 - 點餐自動計費系統</title>
+    <style>
+        :root {
+            --primary-blue: #5d9cec;
+            --primary-red: #ff6b6b;
+            --bg-gray: #f8f9fa;
+            --border-color: #e0e0e0;
+            --nav-height: 60px;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei", sans-serif;
+            background-color: var(--bg-gray);
+            margin: 0;
+            padding: 0;
+            padding-top: calc(var(--nav-height) + 20px);
+        }
+
+        /* --- 頂部導覽列 --- */
+        .navbar {
+            width: 100%;
+            height: var(--nav-height);
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+            z-index: 1000;
+        }
+
+        .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+        }
+
+        .login-btn {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover { background-color: #4a89dc; }
+
+        /* --- 側邊欄 --- */
+        #side-menu {
+            position: fixed;
+            top: var(--nav-height);
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: white;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            z-index: 999;
+            padding-top: 20px;
+        }
+
+        #side-menu a {
+            display: block;
+            padding: 15px 25px;
+            text-decoration: none;
+            color: #333;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        #menu-toggle { display: none; }
+        #menu-toggle:checked ~ #side-menu { left: 0; }
+
+        /* --- 表格樣式 --- */
+        .order-card {
+            width: 95%;
+            max-width: 900px; /* 稍微放寬一點點 */
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin: auto;
+        }
+
+        h2 {
+            background-color: var(--primary-red);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        table { width: 100%; border-collapse: collapse; }
+        th { background-color: var(--primary-blue); color: white; padding: 12px; }
+        td { padding: 15px 10px; border-bottom: 1px solid var(--border-color); text-align: center; }
+        
+        img { width: 70px; height: 50px; object-fit: cover; border-radius: 6px; margin-bottom: 5px; }
+
+        /* 客製化選項格 */
+        .option-cell {
+            width: 160px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        select.addon {
+            width: 100%;
+            height: 38px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .radio-group {
+            height: 38px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 1.2;
+            font-size: 14px;
+        }
+
+        /* 數量輸入框 */
+        input[type="number"] {
+            width: 55px;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        /* 備註輸入框 - 加寬優化 */
+        input[type="text"].note-input {
+            width: 90%; /* 讓它填滿該格 */
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            transition: border 0.3s;
+        }
+
+        input[type="text"].note-input:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+        }
+
+        .footer { padding: 25px; background-color: #fffbe6; text-align: right; font-size: 1.2rem; font-weight: bold; }
+        .total-price { color: #e63946; font-size: 1.8rem; margin-left: 10px; }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <label for="menu-toggle" class="menu-icon">
+            ☰ <span>選單</span>
+        </label>
+        <div class="logo" style="font-weight: bold; color: var(--primary-red);">永和豆漿大王</div>
+        <a href="#" class="login-btn">會員登入</a>
+    </nav>
+
+    <input type="checkbox" id="menu-toggle">
+    <div id="side-menu">
+        <a href="#">最新消息</a>
+        <a href="#">關於我們</a>
+        <a href="#">分店資訊</a>
+        <a href="#">歷史訂單</a>
+        <a href="#">聯絡我們</a>
+    </div>
+
+    <div class="order-card">
+        <h2>線上點餐</h2>
+        <table id="orderTable">
+            <thead>
+                <tr>
+                    <th width="15%">品項</th>
+                    <th width="20%">客製化選項</th>
+                    <th width="10%">單價</th>
+                    <th width="10%">數量</th>
+                    <th width="45%">備註（口味、特殊需求）</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 豆漿 -->
+                <tr class="item-row">
+                    <td>
+                        <img src="img/豆漿.jpg" alt="豆漿"><br>
+                        <strong>豆漿</strong>
+                    </td>
+                    <td>
+                        <div class="option-cell radio-group">
+                            <label><input type="radio" name="soymilk" value="25" checked onchange="calculate()"> 大杯 $25</label>
+                            <label><input type="radio" name="soymilk" value="20" onchange="calculate()"> 小杯 $20</label>
+                        </div>
+                    </td>
+                    <td class="unit-price">25</td>
+                    <td><input type="number" class="qty" value="0" min="0" onchange="calculate()"></td>
+                    <td><input type="text" class="note-input" placeholder="例如：去冰、熱、無糖..."></td>
+                </tr>
+
+                <!-- 蛋餅 -->
+                <tr class="item-row">
+                    <td>
+                        <img src="./img/蛋餅.jpg" alt="蛋餅"><br>
+                        <strong>蛋餅系列</strong>
+                    </td>
+                    <td>
+                        <div class="option-cell">
+                            <select class="addon" onchange="calculate()">
+                                <option value="30">原味蛋餅 $30</option>
+                                <option value="40">起司蛋餅 $40</option>
+                                <option value="55">豬排蛋餅 $55</option>
+                                <option value="65">豬排起司蛋餅 $65</option>
+                                <option value="50">蛋餅夾油條 $50</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="unit-price">30</td>
+                    <td><input type="number" class="qty" value="0" min="0" onchange="calculate()"></td>
+                    <td><input type="text" class="note-input" placeholder="例如：加辣、酥一點、不要蔥..."></td>
+                </tr>
+
+                <!-- 飯糰 -->
+                <tr class="item-row">
+                    <td>
+                        <img src="./img/飯糰.jpg" alt="飯糰"><br>
+                        <strong>飯糰系列</strong>
+                    </td>
+                    <td>
+                        <div class="option-cell">
+                            <select class="addon" onchange="calculate()">
+                                <option value="35">飯糰 $35</option>
+                                <option value="35">素飯糰 $35</option>
+                                <option value="50">飯糰加蛋 $50</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="unit-price">35</td>
+                    <td><input type="number" class="qty" value="0" min="0" onchange="calculate()"></td>
+                    <td><input type="text" class="note-input" placeholder="例如：不要菜脯、蛋要全熟..."></td>
+                </tr>
+
+                <!-- 燒餅 -->
+                <tr class="item-row">
+                    <td>
+                        <img src="./img/燒餅.tw" alt="燒餅"><br>
+                        <strong>燒餅系列</strong>
+                    </td>
+                    <td>
+                        <div class="option-cell">
+                            <select class="addon" onchange="calculate()">
+                                <option value="25">燒餅 $25</option>
+                                <option value="40">燒餅夾蛋 $40</option>
+                                <option value="45">燒餅夾油條 $45</option>
+                                <option value="60">燒餅夾油條加蛋 $60</option>
+                                <option value="55">燒餅夾甜餅 $55</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="unit-price">25</td>
+                    <td><input type="number" class="qty" value="0" min="0" onchange="calculate()"></td>
+                    <td><input type="text" class="note-input" placeholder="例如：加甜辣醬、燒餅要熱的..."></td>
+                </tr>
+
+                <!-- 油條 -->
+                <tr class="item-row">
+                    <td>
+                        <img src="./img/油條.jpg" alt="油條"><br>
+                        <strong>油條</strong>
+                    </td>
+                    <td>
+                        <div class="option-cell">
+                            <select class="addon" onchange="calculate()">
+                                <option value="20">油條 $20</option>
+                                <option value="20">老油條 $20</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="unit-price">20</td>
+                    <td><input type="number" class="qty" value="0" min="0" onchange="calculate()"></td>
+                    <td><input type="text" class="note-input" placeholder="例如：要現炸的..."></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="footer">
+            結帳總金額: <span class="total-price" id="grandTotal">$0</span>
+        </div>
+    </div>
+
+    <script>
+        function calculate() {
+            let total = 0;
+            const rows = document.querySelectorAll('.item-row');
+
+            rows.forEach(row => {
+                let price = 0;
+                const radio = row.querySelector('input[type="radio"]:checked');
+                if (radio) {
+                    price = parseInt(radio.value);
+                } else if (row.querySelector('.addon')) {
+                    price = parseInt(row.querySelector('.addon').value);
+                } else {
+                    price = parseInt(row.querySelector('.unit-price').innerText);
+                }
+                row.querySelector('.unit-price').innerText = price;
+                const qty = parseInt(row.querySelector('.qty').value) || 0;
+                total += price * qty;
+            });
+            document.getElementById('grandTotal').innerText = '$' + total;
+        }
+        window.onload = calculate;
+    </script>
+
+</body>
+</html>

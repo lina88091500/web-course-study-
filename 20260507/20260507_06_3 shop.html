@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>永和豆漿大王 - 最終完整版</title>
+    <style>
+        :root { --primary: #ff4757; --bg: #f8f9fa; --white: #ffffff; }
+        body { font-family: "PingFang TC", "Microsoft JhengHei", sans-serif; background: var(--bg); margin: 0; padding: 140px 0 220px 0; }
+
+        /* 頂部導航 */
+        .header-fixed { position: fixed; top: 0; left: 0; right: 0; background: white; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .nav-top { height: 60px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .category-bar { display: flex; overflow-x: auto; padding: 10px 15px; gap: 10px; border-top: 1px solid #f1f1f1; scrollbar-width: none; }
+        .category-bar::-webkit-scrollbar { display: none; }
+        .tab { white-space: nowrap; padding: 8px 20px; background: #eee; border-radius: 20px; font-size: 14px; cursor: pointer; color: #666; transition: 0.3s; }
+        .tab.active { background: var(--primary); color: white; font-weight: bold; }
+
+        /* 側邊選單與遮罩 */
+        .menu-toggle-input { display: none; }
+        
+        #side-menu { 
+            position: fixed; 
+            top: 0; 
+            left: -280px; 
+            width: 260px; 
+            height: 100%; 
+            background: white; 
+            z-index: 2000; 
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            box-shadow: 5px 0 15px rgba(0,0,0,0.1); 
+            padding-top: 20px;
+        }
+
+        .menu-overlay { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.5); 
+            display: none; 
+            z-index: 1900; 
+            backdrop-filter: blur(2px);
+        }
+
+        /* 透過 Checkbox 控制選單與遮罩 */
+        .menu-toggle-input:checked ~ #side-menu { left: 0; }
+        .menu-toggle-input:checked ~ .menu-overlay { display: block; }
+
+        #side-menu a {
+            display: block;
+            padding: 15px 25px;
+            text-decoration: none;
+            color: #333;
+            border-bottom: 1px solid #f9f9f9;
+            font-size: 16px;
+        }
+
+        /* 內容區 */
+        .container { max-width: 600px; margin: auto; padding: 0 15px; }
+        .item-card { background: var(--white); border-radius: 15px; padding: 15px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .item-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; border-bottom: 2px solid #f8f9fa; padding-bottom: 10px; }
+        .item-img { width: 70px; height: 70px; border-radius: 12px; object-fit: cover; background: #f0f0f0; }
+        .item-title { font-size: 1.2rem; font-weight: bold; color: #2f3542; }
+
+        /* 子品項 */
+        .sub-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f9f9f9; }
+        .sub-item:last-child { border-bottom: none; }
+        .sub-info { flex: 1; font-size: 15px; color: #333; }
+        .sub-price { color: var(--primary); font-weight: bold; margin-left: 8px; }
+        
+        .qty-box { display: flex; align-items: center; gap: 12px; }
+        .btn-step { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #ddd; background: white; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; outline: none; }
+        .btn-step:active { background: #f0f0f0; }
+        .qty-val { min-width: 25px; text-align: center; font-size: 16px; font-weight: bold; }
+
+        /* 底部購物車 */
+        .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; box-shadow: 0 -4px 15px rgba(0,0,0,0.1); z-index: 1500; border-radius: 20px 20px 0 0; }
+        .cart-details { padding: 15px 25px 5px 25px; max-height: 140px; overflow-y: auto; font-size: 14px; }
+        .cart-item-row { display: flex; justify-content: space-between; margin-bottom: 8px; border-left: 4px solid var(--primary); padding-left: 10px; }
+        .cart-main { padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; }
+        .total-price { font-size: 1.8rem; font-weight: bold; color: var(--primary); }
+        .btn-submit { background: var(--primary); color: white; border: none; padding: 12px 35px; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 16px; }
+    </style>
+</head>
+<body>
+
+    <!-- 控制開關 -->
+    <input type="checkbox" id="menu-toggle" class="menu-toggle-input">
+    
+    <!-- 點擊遮罩關閉 -->
+    <label for="menu-toggle" class="menu-overlay"></label>
+    
+    <div class="header-fixed">
+        <div class="nav-top">
+            <label for="menu-toggle" style="font-size: 24px; cursor: pointer; padding: 5px;">☰</label>
+            <div style="font-weight: 800; color: var(--primary); font-size: 1.2rem;">永和豆漿大王</div>
+            <div style="width:34px"></div>
+        </div>
+        <div class="category-bar">
+            <div class="tab active" onclick="filterMenu('all', this)">全部</div>
+            <div class="tab" onclick="filterMenu('drinks', this)">飲品</div>
+            <div class="tab" onclick="filterMenu('omelet', this)">蛋餅</div>
+            <div class="tab" onclick="filterMenu('riceball', this)">飯糰</div>
+            <div class="tab" onclick="filterMenu('cake', this)">燒餅油條</div>
+        </div>
+    </div>
+
+    <!-- 側邊選單 -->
+    <div id="side-menu">
+        <h3 style="padding: 0 25px 15px 25px; border-bottom: 1px solid #eee; margin-top: 10px;">選單功能</h3>
+        <a href="#" onclick="closeMenu()">我的訂單</a>
+        <a href="#" onclick="closeMenu()">分店資訊</a>
+        <a href="#" onclick="closeMenu()">聯絡我們</a>
+        <div style="padding: 20px 25px; color: #999; font-size: 12px;">版本 v1.0.2</div>
+    </div>
+
+    <div class="container">
+        <!-- 飲品類 -->
+        <div class="item-card" data-cat="drinks">
+            <div class="item-header">
+                <img src="img/豆漿.jpg" class="item-img" alt="飲品">
+                <div class="item-title">經典飲品系列</div>
+            </div>
+            <div class="sub-item">
+                <div class="sub-info">豆漿 (大杯) <span class="sub-price">$25</span></div>
+                <div class="qty-box" data-name="豆漿(大)" data-price="25">
+                    <button class="btn-step" onclick="changeQty(this, -1)">-</button>
+                    <b class="qty-val">0</b>
+                    <button class="btn-step" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <div class="sub-item">
+                <div class="sub-info">豆漿 (小杯) <span class="sub-price">$20</span></div>
+                <div class="qty-box" data-name="豆漿(小)" data-price="20">
+                    <button class="btn-step" onclick="changeQty(this, -1)">-</button>
+                    <b class="qty-val">0</b>
+                    <button class="btn-step" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <div class="sub-item">
+                <div class="sub-info">米漿 (大杯) <span class="sub-price">$25</span></div>
+                <div class="qty-box" data-name="米漿(大)" data-price="25">
+                    <button class="btn-step" onclick="changeQty(this, -1)">-</button>
+                    <b class="qty-val">0</b>
+                    <button class="btn-step" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <div class="sub-item">
+                <div class="sub-info">混漿 (大杯) <span class="sub-price">$25</span></div>
+                <div class="qty-box" data-name="混漿(大)" data-price="25">
+                    <button class="btn-step" onclick="changeQty(this, -1)">-</button>
+                    <b class="qty-val">0</b>
+                    <button class="btn-step" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 蛋餅類 -->
+        <div class="item-card" data-cat="omelet">
+            <div class="item-header">
+                <img src="img/蛋餅.jpg" class="item-img" alt="蛋餅">
+                <div class="item-title">手工蛋餅系列</div>
+            </div>
+            <div class="sub-item">
+                <div class="sub-info">原味蛋餅 <span class="sub-price">$30</span></div>
+                <div class="qty-box" data-name="原味蛋餅" data-price="30">
+                    <button class="btn-step" onclick="changeQty(this, -1)">-</button>
+                    <b class="qty-val">0</b>
+                    <button class="btn-step" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <div class="sub-item">
+                <div class="sub-info">起司蛋餅 <span class="sub-price">$40</span></div>
+                <div class="qty-box" data-name="起司蛋餅" data-price="40">
+                    <button class="btn-step" onclick="changeQty(this, -1)">-</button>
+                    <b class="qty-val">0</b>
+                    <button class="btn-step" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <div class="sub-item">
+                <div class="sub-info">豬排蛋餅 <span class="sub-price">$55</span></div>
+                <div class="qty-box" data-name="豬排蛋餅" data-price="55">
+                    <button class="btn-step" onclick="changeQty(this, -1)">-</button>
+                    <b class="qty-val">0</b>
+                    <button class="btn-step" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <div class="sub-item">
+                <div class="sub-info">蛋餅夾油條 <span class="sub-price">$50</span></div>
+                <div class="qty-box" data-name="蛋餅夾油條" data-price="50">
+                    <button class="btn-step" onclick="changeQty(this, -1)">-</button>
+                    <b class="qty-val">0</b>
+                    <button class="btn-step" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 飯糰類 -->
+        <div class="item-card" data-cat="riceball">
+            <div class="item-header">
+                <img src="img/飯糰.jpg" class="item-img" alt="飯糰">
+                <div class="item-title">傳統飯糰系列</div>
+            </div>
+            <div class="sub-item">
+                <div class="sub-info">招牌飯糰 (肉鬆菜脯) <span class="sub-price">$35</span></div>
+                <div class="qty-box" data-name="招牌飯糰" data-price="35">
+                    <button class="btn-step" onclick="changeQty(this, -1)">-</button>
+                    <b class="qty-val">0</b>
+                    <button class="btn-step" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <div class="sub-item">
+                <div class="sub-info">素食飯糰 <span class="sub-price">$35</span></div>
+                <div class="qty-box" data-name="素食飯糰" data-price="35">
+                    <button class="btn-step" onclick="changeQty(this, -1)">-</button>
+                    <b class="qty-val">0</b>
+                    <button class="btn-step" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <div class="sub-item">
+                <div class="sub-info">飯糰加蛋 <span class="sub-price">$50</span></div>
+                <div class="qty-box" data-name="飯糰加蛋" data-price="50">
+                    <button class="btn-step" onclick="changeQty(this, -1)">-</button>
+                    <b class="qty-val">0</b>
+                    <button class="btn-step" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 燒餅油條類 -->
+        <div class="item-card" data-cat="cake">
+            <div class="item-header">
+                <img src="./img/燒餅.tw" class="item-img" alt="燒餅">
+                <div class="item-title">燒餅油條系列</div>
+            </div>
+            <div class="sub-item">
+                <div class="sub-info">純燒餅 <span class="sub-price">$25</span></div>
+                <div class="qty-box" data-name="純燒餅" data-price="25">
+                    <button class="btn-step" onclick="changeQty(this, -1)">-</button>
+                    <b class="qty-val">0</b>
+                    <button class="btn-step" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <div class="sub-item">
+                <div class="sub-info">燒餅夾蛋 <span class="sub-price">$40</span></div>
+                <div class="qty-box" data-name="燒餅夾蛋" data-price="40">
+                    <button class="btn-step" onclick="changeQty(this, -1)">-</button>
+                    <b class="qty-val">0</b>
+                    <button class="btn-step" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <div class="sub-item">
+                <div class="sub-info">燒餅夾油條 <span class="sub-price">$45</span></div>
+                <div class="qty-box" data-name="燒餅夾油條" data-price="45">
+                    <button class="btn-step" onclick="changeQty(this, -1)">-</button>
+                    <b class="qty-val">0</b>
+                    <button class="btn-step" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <div class="sub-item">
+                <div class="sub-info">燒餅夾油條加蛋 <span class="sub-price">$60</span></div>
+                <div class="qty-box" data-name="燒餅油條加蛋" data-price="60">
+                    <button class="btn-step" onclick="changeQty(this, -1)">-</button>
+                    <b class="qty-val">0</b>
+                    <button class="btn-step" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <div class="sub-item">
+                <div class="sub-info">燒餅夾甜餅 <span class="sub-price">$55</span></div>
+                <div class="qty-box" data-name="燒餅夾甜餅" data-price="55">
+                    <button class="btn-step" onclick="changeQty(this, -1)">-</button>
+                    <b class="qty-val">0</b>
+                    <button class="btn-step" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <div class="sub-item">
+                <div class="sub-info">現炸油條 <span class="sub-price">$20</span></div>
+                <div class="qty-box" data-name="現炸油條" data-price="20">
+                    <button class="btn-step" onclick="changeQty(this, -1)">-</button>
+                    <b class="qty-val">0</b>
+                    <button class="btn-step" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部清單 -->
+    <div class="cart-bar">
+        <div class="cart-details" id="cart-details">
+            <div style="color:#ccc; text-align:center; padding: 10px 0;">尚未選擇品項</div>
+        </div>
+        <div class="cart-main">
+            <div>總計 <span class="total-price" id="total">$0</span></div>
+            <button class="btn-submit" onclick="confirmOrder()">確認點餐</button>
+        </div>
+    </div>
+
+    <script>
+        // 核心功能：關閉側邊欄
+        function closeMenu() { 
+            const toggle = document.getElementById('menu-toggle');
+            if(toggle.checked) {
+                toggle.checked = false; 
+            }
+        }
+
+        // 分類過濾
+        function filterMenu(category, el) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            
+            document.querySelectorAll('.item-card').forEach(card => {
+                if (category === 'all' || card.getAttribute('data-cat') === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            // 切換分類時自動回到頂部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 數量調整
+        function changeQty(btn, delta) {
+            const valEl = btn.parentElement.querySelector('.qty-val');
+            let val = parseInt(valEl.innerText) + delta;
+            if (val < 0) val = 0;
+            valEl.innerText = val;
+            calculate();
+        }
+
+        // 計算與清單更新
+        function calculate() {
+            let total = 0;
+            let detailHtml = '';
+            let hasItem = false;
+
+            document.querySelectorAll('.qty-box').forEach(box => {
+                const qty = parseInt(box.querySelector('.qty-val').innerText);
+                if (qty > 0) {
+                    hasItem = true;
+                    const name = box.getAttribute('data-name');
+                    const price = parseInt(box.getAttribute('data-price'));
+                    const subtotal = price * qty;
+                    total += subtotal;
+                    detailHtml += `
+                        <div class="cart-item-row">
+                            <span>${name} x ${qty}</span>
+                            <span>$${subtotal}</span>
+                        </div>`;
+                }
+            });
+
+            const detailContainer = document.getElementById('cart-details');
+            detailContainer.innerHTML = hasItem ? detailHtml : '<div style="color:#ccc; text-align:center; padding: 10px 0;">尚未選擇品項</div>';
+            document.getElementById('total').innerText = '$' + total;
+        }
+
+        // 確認訂單
+        function confirmOrder() {
+            const totalText = document.getElementById('total').innerText;
+            const totalVal = parseInt(totalText.replace('$', ''));
+            
+            if(totalVal === 0) {
+                return alert('請先點餐唷！');
+            }
+            
+            alert('訂單已收到！\n' + '總金額：' + totalText + '\n請至櫃檯報號並結帳。');
+        }
+    </script>
+</body>
+</html>
