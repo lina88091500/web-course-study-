@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+     <style>
+          /* Selects the second element of div siblings */
+          div:nth-of-type(2) {
+               background: palevioletred;
+          }
+
+          /* Selects the second li element in a list */
+          li:nth-of-type(2) {
+               background: paleturquoise;
+          }
+
+          /* Selects every third element among any group of siblings */
+          :nth-of-type(3) {
+               background: palegoldenrod;
+          }
+     </style>
+</head>
+
+<body>
+
+     <h1>Demo of nth-of-type()</h1>
+
+     <div>
+          <p>This is some text in first div.</p>
+     </div>
+
+     <div>
+          <p>This is some text in second div.</p>
+     </div>
+
+     <div>
+          <p>This is some text in third div.</p>
+     </div>
+
+     <ul>
+          <li>First list item</li>
+          <li>Second list item</li>
+          <li>Third list item</li>
+          <li>Fourth list item</li>
+          <li>Fifth list item</li>
+     </ul>
+
+</body>
+
+</html>
