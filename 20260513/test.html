@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>Lina 的 CSS 盒子模型實驗室</title>
+    <style>
+        /* 基礎風格：日系簡約粉嫩風 */
+        body {
+            font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+            background-color: #fffafb;
+            color: #5d5d5d;
+            line-height: 1.8;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.2);
+            border: 1px solid #ffe4e1;
+        }
+
+        h1 { color: #ff8c94; text-align: center; font-size: 2em; border-bottom: 2px dashed #ffb6c1; padding-bottom: 10px; }
+        h2 { color: #ffa07a; border-left: 5px solid #ffb6c1; padding-left: 15px; margin-top: 40px; }
+        
+        /* 核心圖解區 */
+        .box-container {
+            background: #f9f9f9;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* 這裡模擬 Margin */
+        .margin-area {
+            border: 2px dashed #ccc;
+            padding: 30px; /* 這裡的 Padding 當作 Margin 空間看 */
+            display: inline-block;
+            background: white;
+            position: relative;
+        }
+        .margin-area::after { content: "Margin (透明外距)"; position: absolute; top: 5px; left: 5px; font-size: 12px; color: #999; }
+
+        /* 這裡模擬 Border */
+        .border-area {
+            background: #ffb6c1; /* 框線顏色 */
+            padding: 10px; /* 框線粗細 */
+            display: block;
+        }
+
+        /* 這裡模擬 Padding */
+        .padding-area {
+            background: #ffe4e1; /* 留白顏色 */
+            padding: 30px; /* 留白大小 */
+            display: block;
+        }
+
+        /* 這裡模擬 Content */
+        .content-area {
+            background: white;
+            border: 1px solid #ff8c94;
+            padding: 20px;
+            font-weight: bold;
+            color: #ff8c94;
+        }
+
+        /* 知識卡片 */
+        .card {
+            background: #fff9f0;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 1px solid #ffe4b5;
+        }
+
+        .highlight { color: #e91e63; font-weight: bold; }
+
+        /* 屬性縮寫表 */
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid #ffe4e1; padding: 12px; text-align: left; }
+        th { background-color: #fff0f5; color: #ff69b4; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎀 CSS 盒子模型完全手冊</h1>
+    <p>嘿 Lina！這是根據你的講義整理的完整版。我們把每個盒子層級都拆解開來，讓你一眼就看懂它們的層次關係。</p>
+
+    <h2>1. 視覺化層級圖解</h2>
+    <div class="box-container">
+        <div class="margin-area">
+            <div class="border-area">
+                <div class="padding-area">
+                    <div class="content-area">
+                        內容 (Content)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p style="margin-top: 15px; font-size: 0.9em; color: #888;">
+            由外而內：Margin ➔ Border ➔ Padding ➔ Content
+        </p>
+    </div>
+
+    <h2>2. Margin vs. Padding 的終極差別</h2>
+    <div class="card">
+        <p>🌟 <strong>Padding (留白)：</strong> 它是盒子的「肉」。當你設定背景顏色時，Padding 區域會被填滿顏色。它是用來讓內容不要撞到邊框。</p>
+        <p>🌟 <strong>Margin (邊界)：</strong> 它是盒子的「空氣」。它是透明的，用來把別的元素推開，不讓大家擠在一起。</p>
+    </div>
+
+    <h2>3. 那些讓你頭痛的縮寫 (TM, LP...)</h2>
+    <table>
+        <tr>
+            <th>縮寫首字</th>
+            <th>代表方位</th>
+            <th>範例</th>
+        </tr>
+        <tr>
+            <td><strong>T</strong> (Top)</td>
+            <td>上方</td>
+            <td>TM = 上邊界 / TP = 上留白</td>
+        </tr>
+        <tr>
+            <td><strong>B</strong> (Bottom)</td>
+            <td>下方</td>
+            <td>BM = 下邊界 / BP = 下留白</td>
+        </tr>
+        <tr>
+            <td><strong>L</strong> (Left)</td>
+            <td>左方</td>
+            <td>LM = 左邊界 / LP = 左留白</td>
+        </tr>
+        <tr>
+            <td><strong>R</strong> (Right)</td>
+            <td>右方</td>
+            <td>RM = 右邊界 / RP = 右留白</td>
+        </tr>
+    </table>
+
+    <h2>4. 為什麼網頁會變寬？(計算公式)</h2>
+    <div class="card" style="background-color: #f0f7ff; border-color: #bcd4e6;">
+        <p>講義範例：內容 <span class="highlight">60px</span>，留白/框線/邊界各為 <span class="highlight">8/4/8px</span>。</p>
+        <p>計算方式：<code>60 + (8+4+8) × 2 = 100px</code></p>
+        <p>💡 記得要 <strong>× 2</strong>，是因為左右兩邊都有這些距離喔！</p>
+    </div>
+
+    <h2>5. 邊界重疊 (Margin Collapse)</h2>
+    <p>這是最容易考的地方！當兩個垂直的 Margin 碰在一起，它們不會相加，而是會像大魚吃小魚一樣，<strong>只留下最大的那個數字</strong>。</p>
+    <div style="border-left: 3px solid #ffb6c1; padding-left: 15px; font-style: italic; color: #777;">
+        範例：上面盒子想留 20px，下面盒子想留 10px，結果中間只會隔 20px。
+    </div>
+</div>
+
+</body>
+</html>

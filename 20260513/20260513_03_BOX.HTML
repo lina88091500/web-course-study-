@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KKBOX 歌詞頁面 - 完整盒模型版</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+            background-color: #f5f5f5;
+        }
+        /* 強調 Box 的通用樣式 */
+        .custom-box {
+            background-color: #ffffff;
+            border: 2px solid #e0e0e0; /* 顯眼的灰色框線 */
+            border-radius: 4px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        /* 側邊廣告 Box 的特殊色 */
+        .ad-box {
+            background-color: #e2f9eb;
+            border: 2px solid #b8eec9;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- 導覽列 Box -->
+    <nav class="bg-[#1a1a1a] text-white py-4 px-10 flex justify-between items-center border-b-4 border-[#00cbd3]">
+        <div class="flex items-center space-x-8">
+            <h1 class="text-2xl font-black text-[#00cbd3]">KKBOX</h1>
+            <div class="hidden md:flex space-x-6 text-sm">
+                <span>特色功能</span>
+                <span>訂閱方案</span>
+                <span>娛樂情報</span>
+            </div>
+        </div>
+        <div class="text-[#00cbd3] font-bold">搜尋 / 下載</div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto p-6">
+        
+        <!-- 上方：歌曲資訊主要盒子 -->
+        <div class="custom-box flex flex-col md:flex-row gap-10 items-center md:items-start">
+            <!-- 封面盒子 -->
+            <div class="border-4 border-white shadow-xl flex-shrink-0">
+                <img src="./img/01.png" alt="專輯封面" class="w-64 h-64 object-cover">
+            </div>
+            
+            <!-- 文字資訊盒子 -->
+            <div class="flex-grow py-2">
+                <p class="text-gray-400 font-bold text-sm">歌曲</p>
+                <h2 class="text-3xl font-bold my-4 leading-tight">幸福在歌唱 - 電影《陽光女子合唱團》幸福版主題曲</h2>
+                
+                <div class="flex items-center my-6 p-2 border border-gray-100 rounded bg-gray-50 inline-flex">
+                    <img src="./img/02.png" class="w-10 h-10 rounded-full border-2 border-white">
+                    <span class="ml-3 font-bold text-gray-600">A-Lin</span>
+                </div>
+
+                <div class="flex gap-4">
+                    <button class="bg-[#00cbd3] text-white px-10 py-2 rounded-full font-bold shadow-md">試聽</button>
+                    <button class="border-2 border-gray-300 px-10 py-2 rounded-full font-bold">聽全曲</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 下方內容：側欄與歌詞 -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+            
+            <!-- 左側欄盒子 (4格) -->
+            <div class="md:col-span-4">
+                <div class="custom-box">
+                    <h3 class="font-bold text-lg border-b-2 border-gray-100 pb-2 mb-4 text-cyan-600">出自專輯</h3>
+                    <p class="font-bold text-gray-700">幸福在歌唱 - 電影《陽光女子合唱團》幸福版主題曲</p>
+                    <p class="text-sm text-gray-400 mt-2">2025/12/26</p>
+                </div>
+
+                <div class="custom-box ad-box text-center">
+                    <p class="text-xl font-bold mb-4">讓您的團隊更具創意。</p>
+                    <p class="text-sm text-gray-600 mb-6">探索適合團隊使用的 Creative Cloud Pro</p>
+                    <button class="bg-blue-600 text-white px-6 py-2 rounded-full text-sm font-bold mb-8">進一步了解</button>
+                    <div class="pt-4 border-t border-[#b8eec9]">
+                        <p class="text-red-500 font-black text-xl">Adobe</p>
+                        <p class="text-gray-800 font-bold">Creative Cloud</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右側歌詞盒子 (8格) - 完整內容 -->
+            <div class="md:col-span-8">
+                <div class="custom-box">
+                    <h3 class="font-bold text-lg border-b-2 border-gray-100 pb-2 mb-6 text-cyan-600">完整歌詞</h3>
+                    
+                    <div class="space-y-8 text-[17px] leading-relaxed text-gray-700">
+                        <!-- 製作群 -->
+                        <div class="text-sm text-gray-400 border-l-4 border-gray-200 pl-4">
+                            <p>作詞：林孝謙</p>
+                            <p>作曲：李方睿</p>
+                            <p>編曲：Blackie / 周玉珍</p>
+                        </div>
+                        
+                        <!-- 歌詞段落 1 -->
+                        <div>
+                            <p>如果有遠方  你就是方向</p>
+                            <p>可惜遺憾  總是比回憶長</p>
+                            <p>思念沒有盡頭  卻有重量</p>
+                            <p>曾屬於你的我  念念不忘</p>
+                        </div>
+
+                        <!-- 歌詞段落 2 -->
+                        <div>
+                            <p>就算是一秒  換地久天長</p>
+                            <p>時間會治癒人  破碎的嚮往</p>
+                            <p>再見已太辛苦  縫補分離的傷</p>
+                            <p>願心酸將你我  都釀成陽光</p>
+                        </div>
+
+                        <!-- 歌詞段落 3 (副歌) -->
+                        <div class="bg-cyan-50 p-4 border-x-2 border-cyan-100">
+                            <p>我聽見幸福  幸福在歌唱</p>
+                            <p>唱人世悲歡  終化成土壤</p>
+                            <p>陰晴圓缺  花開花謝  學會了原諒</p>
+                            <p>你將最美的夢  遺落在我心上</p>
+                        </div>
+
+                        <!-- 歌詞段落 4 -->
+                        <div>
+                            <p>我聽見幸福  幸福在歌唱</p>
+                            <p>烏雲的背後  終究是明朗</p>
+                            <p>如果世上有天堂  此刻你在我身旁</p>
+                            <p>從不曾被 遺忘</p>
+                        </div>
+
+                        <!-- 歌詞段落 5 (重複) -->
+                        <div>
+                            <p>就算是一秒  換地久天長</p>
+                            <p>時間會治癒人  破碎的嚮往</p>
+                            <p>再見已太辛苦  縫補分離的傷</p>
+                            <p>願心酸將你我  都釀成陽光</p>
+                        </div>
+
+                        <!-- 歌詞段落 6 (副歌重複) -->
+                        <div class="bg-cyan-50 p-4 border-x-2 border-cyan-100">
+                            <p>我聽見幸福  幸福在歌唱</p>
+                            <p>唱人世悲歡  終化成土壤</p>
+                            <p>陰晴圓缺  花開花謝  學會了原諒</p>
+                            <p>你將最美的夢  遺落在我心上</p>
+                        </div>
+
+                        <!-- 歌詞段落 7 (結尾) -->
+                        <div>
+                            <p>我擁抱 過去  過不去的傷</p>
+                            <p>抹去了 淚水  說好不能忘</p>
+                            <p>愛是道永恆的光  守護在你的身旁</p>
+                            <p>從不曾被遺忘</p>
+                            <p>我從不曾遺忘</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="h-20 flex items-center justify-center text-gray-300">
+        <p>End of Content</p>
+    </footer>
+
+</body>
+</html>

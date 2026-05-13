@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+     <style>
+          * {
+               box-sizing: border-box;
+          }
+
+          .box {
+               width: 300px;
+               height: 300px;
+               /* background-color: lightblue; */
+
+               /* 往外推 */
+               margin-top: 50px;
+               margin-left: 50px;
+
+               /* 往內推 */
+               padding-top: 20px;
+               padding-left: 20px;
+
+               border: 20px solid black;
+          }
+
+          .box1 {
+               background-color: lightgoldenrodyellow;
+               /* box-sizing: content-box; */
+          }
+
+          .box2 {
+               /* box-sizing: border-box; */
+
+               background-color: lightpink;
+          }
+     </style>
+</head>
+
+<body>
+     <div class="box box1">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Est eveniet explicabo quae aliquid placeat
+          blanditiis doloremque iste doloribus nam tempore ratione, nostrum nesciunt deserunt, molestiae quam, ea porro
+          possimus repellendus!
+     </div>
+
+     <hr>
+     <div class="box box2">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores vitae minima odio molestiae iusto expedita
+          voluptatibus recusandae temporibus provident qui magni, sed, quia animi officia architecto at, repudiandae
+          dignissimos exercitationem.
+     </div>
+
+</body>
+
+</html>
