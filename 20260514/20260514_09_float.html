@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Professional Gallery Portfolio</title>
+     <!-- 導入專業字體 -->
+     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+     <style>
+          /* 全域樣式優化 */
+          * {
+               box-sizing: border-box;
+               margin: 0;
+               padding: 0;
+          }
+
+          body {
+               /* 專業展示網頁常用的深色漸層背景 */
+               background: radial-gradient(circle at center, #2c3e50 0%, #000000 100%);
+               padding: 60px 5%;
+               font-family: 'Montserrat', sans-serif;
+               color: white;
+               min-height: 100vh;
+          }
+
+          /* 頁面標題（額外裝飾，可自由移除） */
+          body::before {
+               content: "PHOTOGRAPHY PORTFOLIO";
+               display: block;
+               text-align: center;
+               font-size: 12px;
+               letter-spacing: 8px;
+               margin-bottom: 40px;
+               opacity: 0.6;
+          }
+
+          /* 圖片容器基礎設定 */
+          .container {
+               width: 100%;
+               height: 30vh; /* 稍微拉高，氣勢更足 */
+               margin-bottom: 40px; 
+               clear: both;
+          }
+
+          /* 內層區塊美化 */
+          .container > div {
+               position: relative;
+               overflow: hidden;
+               cursor: pointer;
+               background-color: #1a1a1a; /* 載入前的底色 */
+               transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+               box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+          }
+
+          /* 統一圖片處理 */
+          .container div img {
+               width: 100%;
+               height: 100%;
+               object-fit: cover;
+               display: block;
+               filter: grayscale(20%); /* 預設輕微去色，增加高級感 */
+               transition: all 0.8s ease;
+          }
+
+          /* 懸停動效：專業展示網頁核心 */
+          .container > div:hover {
+               transform: scale(0.98); /* 輕微內縮，像按下去的感覺 */
+               box-shadow: 0 10px 30px rgba(255,255,255,0.1);
+          }
+
+          .container > div:hover img {
+               transform: scale(1.15);
+               filter: grayscale(0%) brightness(1.1); /* 移入時恢復色彩並變亮 */
+          }
+
+          /* 模擬專業遮罩（Hover 時產生） */
+          .container > div::after {
+               content: '';
+               position: absolute;
+               top: 0; left: 0; width: 100%; height: 100%;
+               background: rgba(0,0,0,0.3);
+               opacity: 1;
+               transition: opacity 0.5s;
+          }
+
+          .container > div:hover::after {
+               opacity: 0; /* 移入時遮罩消失 */
+          }
+
+          /* --- 佈局間距計算 (保持 float 邏輯) --- */
+
+          .container11 {
+               width: 100%;
+               height: 100%;
+          }
+
+          .container21, .container22 {
+               width: calc(50% - 20px);
+               height: 100%;
+          }
+          .container21 { float: right; }
+          .container22 { float: left; }
+
+          .container31, .container32, .container33 {
+               float: left;
+               width: calc(33.33% - 26.6px);
+               margin-right: 40px;
+               height: 100%;
+          }
+          .container33 { margin-right: 0; }
+
+          .container41, .container42, .container43, .container44 {
+               float: left;
+               width: calc(25% - 30px);
+               margin-right: 40px;
+               height: 100%;
+          }
+          .container44 { margin-right: 0; }
+
+          /* 響應式：平板與手機適配 */
+          @media (max-width: 1024px) {
+               .container { height: 20vh; margin-bottom: 20px; }
+               .container > div { margin-right: 20px !important; width: calc(inherit) !important; }
+               /* 這裡簡化處理，實際開發建議改用 Flexbox */
+          }
+
+          @media (max-width: 600px) {
+               .container { height: auto; }
+               .container > div { 
+                    float: none !important; 
+                    width: 100% !important; 
+                    height: 250px; 
+                    margin-bottom: 20px;
+               }
+          }
+     </style>
+</head>
+
+<body>
+     <!-- 第一列：單張大圖 -->
+     <div class="container">
+          <div class="container11">
+               <img src="https://picsum.photos/id/16/1200/600" alt="">
+          </div>
+     </div>
+
+     <!-- 第二列：雙欄展示 -->
+     <div class="container">
+          <div class="container21">
+                <img src="https://picsum.photos/id/29/800/600" alt="">
+          </div>
+          <div class="container22">
+                <img src="https://picsum.photos/id/11/800/600" alt="">
+          </div>
+     </div>
+
+     <!-- 第三列：三欄展示 -->
+     <div class="container">
+          <div class="container31"><img src="https://picsum.photos/id/10/600/600" alt=""></div>
+          <div class="container32"><img src="https://picsum.photos/id/12/600/600" alt=""></div>
+          <div class="container33"><img src="https://picsum.photos/id/13/600/600" alt=""></div>
+     </div>
+
+     <!-- 第四列：四欄展示 -->
+     <div class="container">
+          <div class="container41"><img src="https://picsum.photos/id/14/600/600" alt=""></div>
+          <div class="container42"><img src="https://picsum.photos/id/15/600/600" alt=""></div>
+          <div class="container43"><img src="https://picsum.photos/id/16/600/600" alt=""></div>
+          <div class="container44"><img src="https://picsum.photos/id/46/600/600" alt=""></div>
+     </div>
+</body>
+
+</html>
