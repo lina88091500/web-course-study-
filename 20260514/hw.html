@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+     <style>
+          table {
+               border-collapse: separate;
+               border-spacing: 20px;
+               margin: 0 auto;
+          }
+
+          .box {
+               width: 276px;
+               height: 398px;
+               background-color: #fff;
+               background-image: url('./imges/one.png');
+               background-repeat: no-repeat;
+               display: block;
+          }
+
+          .box1 {
+               background-position: -26px -9px;
+          }
+
+          .box2 {
+               background-position: -354px -430px;
+          }
+
+          .box3 {
+               background-position: -20px -429px;
+          }
+
+          .box4 {
+               background-position: -684px -430px;
+          }
+
+          .box5 {
+               background-position: -684px -8px;
+          }
+
+          .box6 {
+               background-position: -354px -9px;
+          }
+     </style>
+</head>
+
+<body>
+     <table>
+          <!-- 第一排：1, 2, 3 張 -->
+          <tr>
+               <td>
+                    <div class="box box1"></div>
+               </td>
+               <td>
+                    <div class="box box2"></div>
+               </td>
+               <td>
+                    <div class="box box3"></div>
+               </td>
+               <td></td> <!-- 第一排最後一個留空 -->
+          </tr>
+
+          <!-- 第二排：第一格留空，讓 4, 5, 6 往右移一格 -->
+          <tr>
+               <td></td> <!--它會把後面的 box 往右推 -->
+               <td>
+                    <div class="box box4"></div>
+               </td>
+               <td>
+                    <div class="box box5"></div>
+               </td>
+               <td>
+                    <div class="box box6"></div>
+               </td>
+          </tr>
+     </table>
+</body>
+
+</html>
