@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>SILVERLENS STUDIO | 頂級影視與商業攝影</title>
+     <style>
+          /* ==========================================
+            1. 全域現代化重設
+         ========================================== */
+          * {
+               margin: 0;
+               padding: 0;
+               box-sizing: border-box;
+               font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+          }
+
+          body {
+               background-color: #f8fafc;
+               color: #0f172a;
+               padding-top: 80px;
+          }
+
+          /* ==========================================
+            2. 頂部高級玻璃擬態導覽列
+         ========================================== */
+          .navbar {
+               position: fixed;
+               top: 0;
+               width: 100%;
+               height: 70px;
+               background: rgba(255, 255, 255, 0.7);
+               backdrop-filter: blur(10px);
+               border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+               display: flex;
+               justify-content: space-between;
+               align-items: center;
+               padding: 0 5%;
+               z-index: 1000;
+          }
+
+          .logo {
+               font-size: 1.3rem;
+               font-weight: 700;
+               letter-spacing: 1px;
+               background: linear-gradient(90deg, #64748b, #0f172a);
+               -webkit-background-clip: text;
+               -webkit-text-fill-color: transparent;
+          }
+
+          .nav-links {
+               display: flex;
+               gap: 30px;
+               list-style: none;
+          }
+
+          .nav-links a {
+               text-decoration: none;
+               color: #475569;
+               font-size: 0.95rem;
+               font-weight: 500;
+               transition: color 0.2s;
+          }
+
+          .nav-links a:hover {
+               color: #0f172a;
+          }
+
+          /* ==========================================
+            3. 核心外層 Container
+         ========================================== */
+          .container {
+               width: 90%;
+               max-width: 1200px;
+               margin: 0 auto 35px auto;
+               display: flex;
+               justify-content: space-between;
+               align-items: stretch;
+               gap: 24px;
+          }
+
+          /* 共用區塊內部細緻化 */
+          .flex-center {
+               display: flex;
+               flex-direction: column;
+               justify-content: center;
+               align-items: center;
+               padding: 40px;
+               text-align: center;
+               background-color: #ffffff;
+               border-radius: 20px;
+               border: 1px solid #f1f5f9;
+               box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+               transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+          }
+
+          .flex-center:hover {
+               transform: translateY(-6px);
+               box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+               border-color: #0f172a;
+          }
+
+          .flex-center:hover h3,
+          .flex-center:hover p {
+               color: #475569 !important;
+          }
+
+          /* 圖片標準化 */
+          .block-img {
+               width: 100%;
+               height: 220px;
+               object-fit: cover;
+               border-radius: 12px;
+               margin-bottom: 24px;
+          }
+
+          /* 商用互動按鈕 */
+          .btn {
+               margin-top: 18px;
+               padding: 10px 22px;
+               background-color: #0f172a;
+               color: white;
+               border: none;
+               border-radius: 8px;
+               font-size: 0.9rem;
+               font-weight: 500;
+               cursor: pointer;
+               transition: background-color 0.2s;
+          }
+
+          .btn:hover {
+               background-color: #475569;
+          }
+
+          /* ==========================================
+            4. 各別區塊單個書寫
+         ========================================== */
+
+          /* 區塊一：Hero */
+          .item11 {
+               width: 100%;
+               background: linear-gradient(135deg, #1e1e1e 0%, #0a0a0a 100%);
+               color: white;
+          }
+
+          .item11 h1 {
+               font-size: 3.2rem;
+               font-weight: 800;
+               letter-spacing: -1px;
+               margin-bottom: 16px;
+               background: linear-gradient(to right, #ffffff, #a3a3a3);
+               -webkit-background-clip: text;
+               -webkit-text-fill-color: transparent;
+          }
+
+          .item11 p {
+               font-size: 1.25rem;
+               color: #a3a3a3;
+               max-width: 600px;
+               line-height: 1.6;
+          }
+
+          /* 區塊二：雙欄 */
+          .item21 { width: calc(50% - 12px); }
+          .item22 { width: calc(50% - 12px); }
+
+          /* 區塊三：三欄 */
+          .item31 { width: calc(33.33% - 16px); }
+          .item32 { width: calc(33.33% - 16px); }
+          .item33 { width: calc(33.33% - 16px); }
+
+          /* 區塊四：頁尾資訊 */
+          .container-4 {
+               background-color: #0a0a0a;
+               color: #a3a3a3;
+               border-radius: 24px;
+               padding: 40px 20px;
+          }
+
+          .item41 {
+               width: 25%;
+               background: transparent;
+               box-shadow: none;
+               border: none;
+               align-items: flex-start;
+               text-align: left;
+               padding: 20px;
+          }
+
+          .item42 {
+               width: 25%;
+               background: transparent;
+               box-shadow: none;
+               border: none;
+               align-items: flex-start;
+               text-align: left;
+               padding: 20px;
+          }
+
+          .item43 {
+               width: 25%;
+               background: transparent;
+               box-shadow: none;
+               border: none;
+               align-items: flex-start;
+               text-align: left;
+               padding: 20px;
+          }
+
+          .item44 {
+               width: 25%;
+               background: transparent;
+               box-shadow: none;
+               border: none;
+               align-items: flex-start;
+               text-align: left;
+               padding: 20px;
+          }
+
+          .container-4 .flex-center:hover {
+               transform: none !important;
+               box-shadow: none !important;
+               border-color: transparent !important;
+          }
+
+          .item41 h4, .item42 h4, .item43 h4, .item44 h4 {
+               color: #ffffff;
+               margin-bottom: 16px;
+               font-size: 1rem;
+               font-weight: 600;
+               letter-spacing: 0.5px;
+          }
+
+          .item41 p, .item42 p, .item43 p, .item44 p {
+               font-size: 0.88rem;
+               line-height: 1.7;
+          }
+
+          /* 頁尾超連結樣式 */
+          .footer-links {
+               display: flex;
+               flex-direction: column;
+               gap: 8px;
+          }
+
+          .footer-links a {
+               color: #a3a3a3;
+               text-decoration: none;
+               font-size: 0.88rem;
+               transition: color 0.2s;
+          }
+
+          .footer-links a:hover {
+               color: #ffffff;
+               text-decoration: underline;
+          }
+     </style>
+</head>
+
+<body>
+
+     <!-- 頂部現代導覽列 -->
+     <nav class="navbar">
+          <div class="logo">SILVERLENS.</div>
+          <ul class="nav-links">
+               <li><a href="#">首頁</a></li>
+               <li><a href="#">核心影像</a></li>
+               <li><a href="#">製作流程</a></li>
+               <li><a href="#">洽談合作</a></li>
+          </ul>
+     </nav>
+
+     <!-- 區塊一：影視公司主視覺 Hero -->
+     <div class="container">
+          <div class="item11 flex-center">
+               <h1>用光影捕捉故事的厚度</h1>
+               <p>我們是專注於高質感美學的影像廠牌，結合頂級電影級器械與直覺視覺語彙，為品牌鑄造具傳播力的動態影像與商業平面。</p>
+               <button class="btn" style="background-color: #ffffff; color: #0a0a0a;">觀看作品集 Reel</button>
+          </div>
+     </div>
+
+     <!-- 區塊二：影像核心優勢 -->
+     <div class="container">
+          <div class="item21 flex-center">
+               <img class="block-img" src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=600&q=80" alt="高端影音製作">
+               <h2 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 10px;">電影級動態敘事</h2>
+               <p style="color: #64748b; font-size: 0.95rem; line-height: 1.6;">配備高規格 8K 攝影機與頂級 ARRI 燈具系統，將每一幀畫面打磨至院線廣告水準。</p>
+               <button class="btn">案例分析</button>
+          </div>
+          <div class="item22 flex-center">
+               <img class="block-img" src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80" alt="商業平面攝影">
+               <h2 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 10px;">極致時裝與平面攝影</h2>
+               <p style="color: #64748b; font-size: 0.95rem; line-height: 1.6;">掌握人因光影與當代構圖美學，精準鎖定品牌核心調性，賦予視覺永恆的藝術質感。</p>
+               <button class="btn">平面作品</button>
+          </div>
+     </div>
+
+     <!-- 區塊三：標準影視製作流程 -->
+     <div class="container">
+          <div class="item31 flex-center">
+               <h3 style="font-size: 1.2rem; margin-bottom: 8px; color: #0f172a; transition: color 0.3s;">STAGE 01 / 前置企劃</h3>
+               <p style="font-size: 0.9rem; color: #64748b; line-height: 1.6; transition: color 0.3s;">腳本發想、精準分鏡繪製、場景勘查與演員媒合，將創意具體骨肉化。</p>
+          </div>
+          <div class="item32 flex-center">
+               <h3 style="font-size: 1.2rem; margin-bottom: 8px; color: #0f172a; transition: color 0.3s;">STAGE 02 / 現場拍攝</h3>
+               <p style="font-size: 0.9rem; color: #64748b; line-height: 1.6; transition: color 0.3s;">專業導演、攝影與燈光團隊進駐，精準調度片場運作，捕捉精彩瞬間。</p>
+          </div>
+          <div class="item33 flex-center">
+               <h3 style="font-size: 1.2rem; margin-bottom: 8px; color: #0f172a; transition: color 0.3s;">STAGE 03 / 後期高保真</h3>
+               <p style="font-size: 0.9rem; color: #64748b; line-height: 1.6; transition: color 0.3s;">達芬奇專業數位調光、三維特效剪輯與聲效蒙太奇，完成影音終極部署。</p>
+          </div>
+     </div>
+
+     <!-- 區塊四：四欄頁尾資訊（拍攝公司版） -->
+     <div class="container container-4">
+          <div class="item41 flex-center">
+               <h4>ABOUT STUDIO</h4>
+               <p>SILVERLENS 成立於台北，是一家兼具國際視覺視野與核心執行力的影像製作廠牌，專注於改寫視覺傳播的質感標準。</p>
+          </div>
+          
+          <div class="item42 flex-center">
+               <h4>SELECTED REEL</h4>
+               <div class="footer-links">
+                    <a href="#branding">• 2026 商業品牌年度形象</a>
+                    <a href="#mv">• 音樂錄影帶 MV 精選</a>
+                    <a href="#fashion">• 時裝週現場平面紀錄</a>
+               </div>
+          </div>
+          
+          <div class="item43 flex-center">
+               <h4>SERVICES</h4>
+               <div class="footer-links">
+                    <a href="#commercial">企業形象與商業廣告</a>
+                    <a href="#documentary">人文紀錄片與動態側拍</a>
+                    <a href="#product">高端產品與空間攝影</a>
+               </div>
+          </div>
+          
+          <div class="item44 flex-center">
+               <h4>PRODUCTION INQUIRY</h4>
+               <div class="footer-links">
+                    <a href="mailto:shoot@silverlens.studio">Email: shoot@silverlens.studio</a>
+                    <a href="tel:0298765432">Tel: 02-9876-5432</a>
+                    <a href="#map">片場: 新北市泰山區影像創客基地 8 號</a>
+               </div>
+          </div>
+     </div>
+
+</body>
+
+</html>

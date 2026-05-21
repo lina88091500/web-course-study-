@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>hw</title>
+     <style>
+          * {
+               margin: 0;
+               padding: 0;
+               box-sizing: border-box;
+          }
+
+          body {
+               background-color: #f0f0f0;
+               padding: 20px 0;
+          }
+
+          .container {
+               width: 90%;
+               margin: 0 auto 20px auto;
+               background-color: transparent; 
+               border: none;
+               
+               display: flex;
+               justify-content: space-between;
+               align-items: center;
+               gap: 20px; 
+          }
+
+          .container-no-gap {
+               gap: 0px !important;
+          }
+
+          .flex-center {
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               padding: 20px;
+               text-align: center;
+          }
+
+          .block-img {
+               width: 100%;
+               height: auto;
+               display: block;
+          }
+
+          .item11 {
+               width: 100%;
+               height: 300px;
+               background-color: #e0e0e0;
+               border: 1px solid #cccccc;
+               border-radius: 12px;
+          }
+
+          .item21 {
+               width: calc(50% - 10px);
+               height: 250px;
+               background-color: #d0d0d0;
+               border: 1px solid #cccccc;
+               border-radius: 12px;
+          }
+
+          .item22 {
+               width: calc(50% - 10px);
+               height: 250px;
+               background-color: #c8c8c8;
+               border: 1px solid #cccccc;
+               border-radius: 12px;
+          }
+
+          .item31 {
+               width: calc(33.33% - 13.33px);
+               height: 200px;
+               background-color: #b0b0b0;
+               border: 1px solid #cccccc;
+               border-radius: 12px;
+          }
+
+          .item32 {
+               width: calc(33.33% - 13.33px);
+               height: 200px;
+               background-color: #a8a8a8;
+               border: 1px solid #cccccc;
+               border-radius: 12px;
+          }
+
+          .item33 {
+               width: calc(33.33% - 13.33px);
+               height: 200px;
+               background-color: #a0a0a0;
+               border: 1px solid #cccccc;
+               border-radius: 12px;
+          }
+
+          .item41 {
+               width: 25%;
+               height: 150px;
+               background-color: #909090;
+               border: 1px solid #cccccc;
+               border-right: none; 
+               border-radius: 12px 0 0 12px; 
+          }
+
+          .item42 {
+               width: 25%;
+               height: 150px;
+               background-color: #888888;
+               border: 1px solid #cccccc;
+               border-right: none; 
+               border-radius: 0px; 
+          }
+
+          .item43 {
+               width: 25%;
+               height: 150px;
+               background-color: #808080;
+               border: 1px solid #cccccc;
+               border-right: none; 
+               border-radius: 0px; 
+          }
+
+          .item44 {
+               width: 25%;
+               height: 150px;
+               background-color: #787878;
+               border: 1px solid #cccccc;
+               border-radius: 0 12px 12px 0; 
+          }
+     </style>
+</head>
+
+<body>
+
+     <div class="container">
+          <div class="item11 flex-center">區塊一（單欄滿版）</div>
+     </div>
+
+     <div class="container">
+          <div class="item21 flex-center">區塊二 - 左欄</div>
+          <div class="item22 flex-center">區塊二 - 右欄</div>
+     </div>
+
+     <div class="container">
+          <div class="item31 flex-center">區塊三 - 左欄</div>
+          <div class="item32 flex-center">區塊三 - 中欄</div>
+          <div class="item33 flex-center">區塊三 - 右欄</div>
+     </div>
+
+     <div class="container container-no-gap">
+          <div class="item41 flex-center">區塊四 - 欄位一</div>
+          <div class="item42 flex-center">區塊四 - 欄位二</div>
+          <div class="item43 flex-center">區塊四 - 欄位三</div>
+          <div class="item44 flex-center">區塊四 - 欄位四</div>
+     </div>
+
+</body>
+
+</html>
