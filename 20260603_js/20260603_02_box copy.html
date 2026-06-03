@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>多主題互動網頁作品集 - 跑步人升級版</title>
+     <style>
+          /* ==========================================================================
+             1. CSS 變數定義（多主題切換）
+             ========================================================================== */
+          :root {
+               --bg-global: #f7f9f8;
+               --text-main: #2c3e50;
+               --text-sub: #8fa1b3;
+               --brand-color: #4f6f52;
+               --card-bg: #ffffff;
+               --card-border: rgba(169, 179, 136, 0.15);
+               --card-shadow: rgba(169, 179, 136, 0.08);
+               --card-hover-shadow: rgba(79, 111, 82, 0.15);
+               --box-bg: #2c3a2e;
+               --input-bg: #fefcf6;
+               --input-border: #f1ede2;
+          }
+
+          [data-theme="dark-berry"] {
+               --bg-global: #0f0f14;
+               --text-main: #f1f2f6;
+               --text-sub: #747d8c;
+               --brand-color: #9c88ff;
+               --card-bg: #1a1a24;
+               --card-border: rgba(156, 136, 255, 0.15);
+               --card-shadow: rgba(0, 0, 0, 0.4);
+               --card-hover-shadow: rgba(156, 136, 255, 0.25);
+               --box-bg: #0b0b10;
+               --input-bg: #222230;
+               --input-border: #2f2f42;
+          }
+
+          [data-theme="peach-tea"] {
+               --bg-global: #fffcf9;
+               --text-main: #4a3728;
+               --text-sub: #a0816c;
+               --brand-color: #ff7979;
+               --card-bg: #ffffff;
+               --card-border: rgba(255, 121, 121, 0.15);
+               --card-shadow: rgba(255, 121, 121, 0.05);
+               --card-hover-shadow: rgba(255, 121, 121, 0.15);
+               --box-bg: #4a3728;
+               --input-bg: #fff5f0;
+               --input-border: #fde2d4;
+          }
+
+          /* ==========================================================================
+             2. 全域排版與卡片樣式
+             ========================================================================== */
+          body {
+               background-color: var(--bg-global);
+               font-family: "PingFang TC", "Helvetica Neue", sans-serif;
+               margin: 0;
+               padding: 0;
+               display: flex;
+               flex-direction: column;
+               align-items: center;
+               color: var(--text-main);
+               transition: background-color 0.5s ease, color 0.5s ease;
+          }
+
+          .creative-nav {
+               width: 100%;
+               max-width: 1100px;
+               height: 80px;
+               display: flex;
+               justify-content: space-between;
+               align-items: center;
+               padding: 0 30px;
+               box-sizing: border-box;
+          }
+
+          .logo-text {
+               font-size: 18px;
+               font-weight: bold;
+               letter-spacing: 1px;
+               color: var(--brand-color);
+               transition: color 0.5s;
+          }
+
+          .theme-picker {
+               display: flex;
+               gap: 8px;
+               background: rgba(0,0,0,0.03);
+               padding: 4px;
+               border-radius: 20px;
+          }
+
+          .theme-dot {
+               width: 24px;
+               height: 24px;
+               border-radius: 50%;
+               border: 2px solid transparent;
+               cursor: pointer;
+               transition: transform 0.2s, border-color 0.2s;
+          }
+          .theme-dot:hover { transform: scale(1.15); }
+          .theme-dot.active { border-color: var(--text-main); }
+
+          .dot-matcha { background-color: #4f6f52; }
+          .dot-berry { background-color: #9c88ff; }
+          .dot-peach { background-color: #ff7979; }
+
+          .main-intro {
+               text-align: center;
+               margin-top: 30px;
+               margin-bottom: 30px;
+          }
+
+          .main-intro h1 {
+               font-size: 36px;
+               font-weight: 700;
+               margin: 0;
+               letter-spacing: 2px;
+          }
+
+          .main-intro .divider {
+               width: 40px;
+               height: 3px;
+               background-color: var(--brand-color);
+               margin: 15px auto;
+               border-radius: 2px;
+               transition: background-color 0.5s;
+          }
+
+          .main-intro p {
+               font-size: 14px;
+               color: var(--text-sub);
+               letter-spacing: 1px;
+          }
+
+          .display-stage {
+               width: 100%;
+               max-width: 1100px;
+               display: flex;
+               justify-content: center;
+               padding-bottom: 60px;
+          }
+
+          .creative-card {
+               background-color: var(--card-bg);
+               border-radius: 32px;
+               box-shadow: 0 10px 30px var(--card-shadow);
+               padding: 40px;
+               display: flex;
+               flex-direction: column;
+               align-items: center;
+               gap: 25px;
+               width: 420px;
+               border: 1px solid var(--card-border);
+               transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.5s;
+          }
+
+          .creative-card:hover {
+               transform: translateY(-8px);
+               box-shadow: 0 20px 40px var(--hover-shadow);
+          }
+
+          /* ==========================================================================
+             3. 核心大方向：紅綠燈主殼（高度微調拉長以容納跑步人）
+             ========================================================================== */
+          .box {
+               width: 130px;
+               height: 420px; /* 拉長一點點，完美裝下跑步人和三個燈號 */
+               background-color: var(--box-bg);
+               border-radius: 40px;
+               padding: 20px 15px;
+               display: flex;
+               flex-direction: column;
+               justify-content: space-between;
+               align-items: center;
+               box-sizing: border-box;
+               box-shadow: inset 0 2px 4px rgba(255,255,255,0.1), 0 10px 20px rgba(0,0,0,0.15);
+               transition: background-color 0.5s;
+          }
+
+          /* ==========================================================================
+             ✨ 獨創功能：純 CSS 打造的高級動態小綠人 / 小紅人
+             ========================================================================== */
+          .pedestrian-box {
+               width: 76px;
+               height: 76px;
+               background: #111116;
+               border-radius: 16px; /* 帶有精緻科技感的小方殼 */
+               box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.5);
+               display: flex;
+               align-items: center;
+               justify-content: center;
+               position: relative;
+               overflow: hidden;
+          }
+
+          /* 行人基本骨架 */
+          .walker {
+               position: relative;
+               width: 20px;
+               height: 40px;
+               transition: all 0.3s;
+               --color-light: #576574; /* 預設暗色未亮燈 */
+          }
+
+          /* 頭部 */
+          .walker::before {
+               content: '';
+               position: absolute;
+               top: 0; left: 50%;
+               transform: translateX(-50%);
+               width: 10px; height: 10px;
+               border-radius: 50%;
+               background-color: var(--color-light);
+               transition: background-color 0.3s;
+          }
+
+          /* 身體與四肢 */
+          .walker-body {
+               position: absolute;
+               top: 13px; left: 50%;
+               transform: translateX(-50%);
+               width: 4px; height: 14px;
+               background-color: var(--color-light);
+               border-radius: 2px;
+               transition: background-color 0.3s;
+          }
+
+          /* 雙腿 */
+          .walker-leg {
+               position: absolute;
+               top: 25px;
+               width: 3px; height: 15px;
+               background-color: var(--color-light);
+               transform-origin: top center;
+               transition: background-color 0.3s;
+          }
+          .leg-left { left: 5px; }
+          .leg-right { right: 5px; }
+
+          /* --- 狀態 A：紅燈靜止站立 --- */
+          .pedestrian-box.red-state .walker { --color-light: #ff6b6b; filter: drop-shadow(0 0 8px #ff6b6b); }
+          .pedestrian-box.red-state .leg-left { transform: rotate(5deg); }
+          .pedestrian-box.red-state .leg-right { transform: rotate(-5deg); }
+
+          /* --- 狀態 B：綠燈擺腿跑步動態 --- */
+          .pedestrian-box.green-state .walker { --color-light: #0be881; filter: drop-shadow(0 0 10px #0be881); }
+          .pedestrian-box.green-state .leg-left { animation: run-cycle 0.5s infinite alternate ease-in-out; }
+          .pedestrian-box.green-state .leg-right { animation: run-cycle 0.5s infinite alternate-reverse ease-in-out; }
+
+          /* --- 狀態 C：黃燈或閃爍快跑動態 --- */
+          .pedestrian-box.blink-state .walker { --color-light: #ffd32a; filter: drop-shadow(0 0 10px #ffd32a); }
+          .pedestrian-box.blink-state .leg-left { animation: run-cycle 0.25s infinite alternate ease-in-out; }
+          .pedestrian-box.blink-state .leg-right { animation: run-cycle 0.25s infinite alternate-reverse ease-in-out; }
+          .pedestrian-box.blink-state { animation: fast-blink 0.5s infinite; }
+
+          /* 擺腿動畫 */
+          @keyframes run-cycle {
+               0% { transform: rotate(-30deg); }
+               100% { transform: rotate(30deg); }
+          }
+          /* 黃燈閃爍動畫 */
+          @keyframes fast-blink {
+               0%, 100% { opacity: 1; }
+               50% { opacity: 0.2; }
+          }
+
+          /* ==========================================================================
+             4. 三個圓形燈號（完美保留你原版的 item 邏輯）
+             ========================================================================== */
+          .item {
+               width: 76px;
+               height: 76px;
+               border-radius: 50%;
+               background: #1e261f;
+               box-shadow: inset 0 6px 10px rgba(0, 0, 0, 0.4);
+               transition: all 0.3s ease;
+               display: flex;
+               align-items: center;
+               justify-content: center;
+               font-size: 24px;
+               font-weight: bold;
+               color: transparent;
+               user-select: none;
+          }
+
+          .item1.active { background: radial-gradient(circle at 50% 30%, #ff6b6b 0%, #ee5253 100%); box-shadow: 0 0 30px rgba(238, 82, 83, 0.6); color: #ffffff; }
+          .item2.active { background: radial-gradient(circle at 50% 30%, #ffd32a 0%, #ffc048 100%); box-shadow: 0 0 30px rgba(255, 192, 72, 0.6); color: #ffffff; }
+          .item3.active { background: radial-gradient(circle at 50% 30%, #05c46b 0%, #0be881 100%); box-shadow: 0 0 30px rgba(11, 232, 129, 0.6); color: #ffffff; }
+
+          /* ==========================================================================
+             5. 控制底座與按鈕
+             ========================================================================== */
+          .container-input {
+               width: 100%;
+               background-color: var(--input-bg);
+               border: 1px solid var(--input-border);
+               padding: 18px;
+               border-radius: 20px;
+               display: flex;
+               flex-direction: column;
+               gap: 15px;
+               box-sizing: border-box;
+               transition: background-color 0.5s, border-color 0.5s;
+          }
+
+          .control-row {
+               display: flex;
+               justify-content: space-between;
+               align-items: center;
+          }
+
+          .control-label {
+               font-size: 13px;
+               color: var(--text-main);
+               font-weight: bold;
+          }
+
+          .mode-btn {
+               background: var(--card-bg);
+               border: 1px solid var(--input-border);
+               color: var(--text-main);
+               padding: 6px 14px;
+               border-radius: 10px;
+               font-size: 12px;
+               cursor: pointer;
+               transition: all 0.3s;
+          }
+
+          .mode-btn.active { background: var(--brand-color); border-color: var(--brand-color); color: #fff; }
+
+          .circle-btn-group { display: flex; gap: 12px; }
+          .circle-btn { width: 24px; height: 24px; border-radius: 50%; border: none; cursor: pointer; transition: transform 0.2s; }
+          .circle-btn:hover:not(:disabled) { transform: scale(1.15); }
+          .circle-btn:disabled { opacity: 0.15; cursor: not-allowed; }
+
+          .btn-r { background: #ff6b6b; }
+          .btn-y { background: #ffd32a; }
+          .btn-g { background: #05c46b; }
+
+          .card-footer { text-align: center; width: 100%; border-top: 1px solid var(--input-border); padding-top: 20px; }
+          .card-footer .title { font-size: 16px; color: var(--text-main); font-weight: bold; margin-bottom: 6px; }
+          .card-footer .desc { font-size: 13px; color: var(--text-sub); }
+     </style>
+</head>
+
+<body>
+
+     <div class="creative-nav">
+          <div class="logo-text">DYNAMIC.LIGHT.LAB</div>
+          <div class="theme-picker">
+               <div class="theme-dot dot-matcha active" onclick="switchTheme('matcha', this)" title="宇治抹茶"></div>
+               <div class="theme-dot dot-berry" onclick="switchTheme('berry', this)" title="暮色黑醋栗"></div>
+               <div class="theme-dot dot-peach" onclick="switchTheme('peach', this)" title="蜜桃烏龍"></div>
+          </div>
+     </div>
+
+     <div class="main-intro">
+          <h1>動態斑馬線裝置藝術</h1>
+          <div class="divider"></div>
+          <p>結合智慧時序控制與連動型動態小綠人機制</p>
+     </div>
+
+     <div class="display-stage">
+          <div class="creative-card">
+               
+               <div class="box">
+                    <div class="pedestrian-box" id="pedBox">
+                         <div class="walker">
+                              <div class="walker-body"></div>
+                              <div class="walker-leg leg-left"></div>
+                              <div class="walker-leg leg-right"></div>
+                         </div>
+                    </div>
+                    
+                    <div class="item item1" id="redLight"></div>
+                    <div class="item item2" id="yellowLight"></div>
+                    <div class="item item3" id="greenLight"></div>
+               </div>
+
+               <div class="container-input">
+                    <div class="control-row">
+                         <span class="control-label">運作型態</span>
+                         <div style="display: flex; gap: 6px;">
+                              <button class="mode-btn active" id="m-manual" onclick="changeMode('manual')">手動定義</button>
+                              <button class="mode-btn" id="m-auto" onclick="changeMode('auto')">時序輪播</button>
+                              <button class="mode-btn" id="m-blink" onclick="changeMode('blink')">黃燈警示</button>
+                         </div>
+                    </div>
+                    <div style="height: 1px; background: var(--input-border); width: 100%;"></div>
+                    <div class="control-row">
+                         <span class="control-label">訊號觸發</span>
+                         <div class="circle-btn-group">
+                              <button class="circle-btn btn-r" id="t-red" onclick="manualTrigger('red')"></button>
+                              <button class="circle-btn btn-y" id="t-yellow" onclick="manualTrigger('yellow')"></button>
+                              <button class="circle-btn btn-g" id="t-green" onclick="manualTrigger('green')"></button>
+                         </div>
+                    </div>
+               </div>
+
+               <div class="card-footer">
+                    <div class="title">智慧連動型交通號誌</div>
+                    <div class="desc">小人步頻隨交通燈號智慧變更</div>
+               </div>
+
+          </div>
+     </div>
+
+     <script>
+          // 主題切換
+          function switchTheme(themeName, element) {
+               document.querySelectorAll('.theme-dot').forEach(dot => dot.classList.remove('active'));
+               element.classList.add('active');
+               if (themeName === 'matcha') document.documentElement.removeAttribute('data-theme');
+               else if (themeName === 'berry') document.documentElement.setAttribute('data-theme', 'dark-berry');
+               else if (themeName === 'peach') document.documentElement.setAttribute('data-theme', 'peach-tea');
+          }
+
+          let currentMode = 'manual';
+          let timer = null;
+          let blinkTimer = null;
+          const SECONDS = { red: 5, yellow: 2, green: 5 };
+
+          // 初始設定
+          updateVisual('red');
+
+          function changeMode(mode) {
+               currentMode = mode;
+               clearInterval(timer);
+               clearInterval(blinkTimer);
+               clearText();
+
+               document.getElementById('m-manual').classList.toggle('active', mode === 'manual');
+               document.getElementById('m-auto').classList.toggle('active', mode === 'auto');
+               document.getElementById('m-blink').classList.toggle('active', mode === 'blink');
+
+               const isManual = mode === 'manual';
+               document.getElementById('t-red').disabled = !isManual;
+               document.getElementById('t-yellow').disabled = !isManual;
+               document.getElementById('t-green').disabled = !isManual;
+
+               if (mode === 'manual') {
+                    updateVisual('red');
+               } else if (mode === 'auto') {
+                    startAuto('green');
+               } else if (mode === 'blink') {
+                    startBlink();
+               }
+          }
+
+          // 【創意核心】連動更新燈號與小人的狀態！
+          function updateVisual(activeColor) {
+               document.getElementById('redLight').className = 'item item1';
+               document.getElementById('yellowLight').className = 'item item2';
+               document.getElementById('greenLight').className = 'item item3';
+               clearText();
+               
+               const pedBox = document.getElementById('pedBox');
+               pedBox.className = 'pedestrian-box'; // 重置小人
+
+               if (activeColor) {
+                    document.getElementById(activeColor + 'Light').classList.add('active');
+                    
+                    // 根據目前亮什麼燈，給小人不同的動態 class
+                    if (activeColor === 'red') {
+                         pedBox.classList.add('red-state'); // 紅燈：靜止
+                    } else if (activeColor === 'green') {
+                         pedBox.classList.add('green-state'); // 綠燈：快樂跑步
+                    } else if (activeColor === 'yellow') {
+                         pedBox.classList.add('blink-state'); // 黃燈：緊張快閃奔跑
+                    }
+               } else {
+                    // 閃爍模式下
+                    pedBox.classList.add('blink-state');
+               }
+          }
+
+          function clearText() {
+               document.getElementById('redLight').innerText = '';
+               document.getElementById('yellowLight').innerText = '';
+               document.getElementById('greenLight').innerText = '';
+          }
+
+          function manualTrigger(color) {
+               if (currentMode !== 'manual') return;
+               updateVisual(color);
+          }
+
+          function startAuto(startColor) {
+               const order = ['green', 'yellow', 'red'];
+               let idx = order.indexOf(startColor);
+
+               function step() {
+                    let color = order[idx];
+                    updateVisual(color);
+                    let count = SECONDS[color];
+                    document.getElementById(color + 'Light').innerText = count;
+
+                    timer = setInterval(() => {
+                         count--;
+                         if (count > 0) {
+                              document.getElementById(color + 'Light').innerText = count;
+                              // 當綠燈剩下最後 2 秒時，偷偷讓小人跑快一點（模擬現實）
+                              if (color === 'green' && count <= 2) {
+                                   document.getElementById('pedBox').className = 'pedestrian-box blink-state';
+                              }
+                         } else {
+                              clearInterval(timer);
+                              idx = (idx + 1) % order.length;
+                              step();
+                         }
+                    }, 1000);
+               }
+               step();
+          }
+
+          function startBlink() {
+               let on = false;
+               updateVisual(null);
+               blinkTimer = setInterval(() => {
+                    document.getElementById('yellowLight').classList.toggle('active', on);
+                    on = !on;
+               }, 500);
+          }
+     </script>
+</body>
+
+</html>
