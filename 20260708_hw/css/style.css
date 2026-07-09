@@ -50,8 +50,13 @@ body {
      min-height: 80vh;
      display: flex;
      align-items: center;
-     padding-top: 140px; /* 防止與絕對定位的導覽列重疊 */
+     padding-top: 140px;
+     /* 防止與絕對定位的導覽列重疊 */
      padding-bottom: 60px;
+     
+     /* 💡 在這裡新增這行！用百分比來推，電腦版就會優雅地往右移囉 */
+     padding-left: 8%; 
+     
      border-bottom-right-radius: 80% 20px;
      overflow: hidden;
 }
@@ -234,6 +239,7 @@ body {
 .carousel-control-prev.mini-control {
      left: -15px;
 }
+
 .carousel-control-next.mini-control {
      right: -15px;
 }
@@ -300,7 +306,8 @@ body {
      transition: all 0.2s ease;
 }
 
-.btn-filter-mobile:hover, .btn-filter-mobile:focus {
+.btn-filter-mobile:hover,
+.btn-filter-mobile:focus {
      background-color: #1A1A1A;
      color: #FFFFFF;
      border-color: #1A1A1A;
@@ -349,7 +356,7 @@ body {
 }
 
 .custom-accordion .accordion-button::after {
-     filter: brightness(0.2); 
+     filter: brightness(0.2);
 }
 
 .custom-accordion .accordion-body {
@@ -421,8 +428,14 @@ body {
           opacity: 1;
           top: 35%;
      }
-     .carousel-control-prev.mini-control { left: 5px; }
-     .carousel-control-next.mini-control { right: 5px; }
+
+     .carousel-control-prev.mini-control {
+          left: 5px;
+     }
+
+     .carousel-control-next.mini-control {
+          right: 5px;
+     }
 }
 
 
@@ -438,8 +451,9 @@ body {
 
      /* 導覽列：收縮厚度，不喧賓奪主 */
      .custom-navbar {
-          padding: 10px 20px !important; 
+          padding: 6px 15px !important;
      }
+
      .navbar-brand {
           font-size: 1.1rem !important;
           letter-spacing: 2px !important;
@@ -447,54 +461,68 @@ body {
 
      /* Hero 品牌區：縮小標題，拉開字距，製造日雜般的空氣留白感 */
      .hero-section {
-          min-height: auto !important; 
-          padding-top: 115px !important; 
-          padding-bottom: 40px !important;
+          min-height: auto !important;
+          padding-top: 100px !important;
+          padding-bottom: 20px !important;
      }
-     
+
      .hero-title-en {
-          font-size: 1.8rem !important; /* 修正原本 2.8rem 的過大壓迫感 */
-          letter-spacing: 5px !important; /* 拉寬字距，展現日系極簡質感 */
+          font-size: 1.5rem !important;
+          /* 修正原本 2.8rem 的過大壓迫感 */
+          letter-spacing: 5px !important;
+          /* 拉寬字距，展現日系極簡質感 */
      }
-     
+
      /* 強制修正 HTML 內行內樣式帶來的巨大的 3rem 字體 */
      .hero-section h1[style*="font-size: 3rem"] {
-          font-size: 1.6rem !important;
-          letter-spacing: 5px !important;
+          font-size: 1rem !important;
+          letter-spacing: 4px !important;
      }
 
      .hero-tagline {
-          font-size: 0.75rem !important; /* 文案字體縮小，大幅提升精緻感 */
+          font-size: 0.75rem !important;
+          /* 文案字體縮小，大幅提升精緻感 */
           letter-spacing: 1px !important;
-          line-height: 1.8 !important; /* 增加行高讓版面不擁擠 */
+          line-height: 1.8 !important;
+          /* 增加行高讓版面不擁擠 */
           margin-top: 15px !important;
-          opacity: 0.85; 
+          opacity: 0.85;
      }
 
      /* 四欄飾品分類：將方塊縮小比例，使畫面更清透 */
      .content-section {
-          padding: 40px 0 !important; /* 砍掉原本 80px 的過多死白 */
+          padding: 25px 10px !important;
+          /* 砍掉原本 80px 的過多死白 */
+          
      }
+
      .concept-card {
           padding: 15px 5px !important;
-          border-color: rgba(230, 203, 179, 0.25) !important; /* 淡化邊框 */
+          border-color: rgba(230, 203, 179, 0.25) !important;
+          /* 淡化邊框 */
      }
+
      .icon-wrapper {
-          width: 48px !important;
+          width: 50px !important;
           height: 48px !important;
           margin-bottom: 10px !important;
      }
+
      .icon-gold-frame {
           width: 38px !important;
           height: 38px !important;
      }
+
      .icon-wrapper svg {
-          transform: scale(0.75); /* 等比例細緻化圖標 */
+          transform: scale(0.75);
+          /* 等比例細緻化圖標 */
      }
+
      .concept-title {
           font-size: 0.75rem !important;
           letter-spacing: 1px !important;
      }
+
      .concept-desc {
           font-size: 0.65rem !important;
           opacity: 0.7;
@@ -502,14 +530,18 @@ body {
 
      /* 輪播單一商品大卡片：融入商品頁的和諧美學比例 */
      #zlMultiProductCarousel .row {
-          padding: 0 15px !important; /* 讓滿版大圖左右留下一絲精緻的空隙 */
+          padding: 0 15px !important;
+          /* 讓滿版大圖左右留下一絲精緻的空隙 */
      }
-     
+
      .zl-mini-card {
-          border-radius: 8px !important; /* 導入商品頁卡片的微圓角 */
-          border: 1px solid rgba(230, 203, 179, 0.25) !important; /* 淺金色細邊框 */
-          box-shadow: 0 4px 15px rgba(45, 38, 37, 0.03) !important; /* 輕柔優雅的淡淡陰影 */
-          padding: 12px !important; 
+          border-radius: 8px !important;
+          /* 導入商品頁卡片的微圓角 */
+          border: 1px solid rgba(230, 203, 179, 0.25) !important;
+          /* 淺金色細邊框 */
+          box-shadow: 0 4px 15px rgba(45, 38, 37, 0.03) !important;
+          /* 輕柔優雅的淡淡陰影 */
+          padding: 12px !important;
      }
 
      .zl-mini-info {
@@ -527,7 +559,7 @@ body {
      /* 商品價格：字體縮小，顏色同步成商品頁的招牌金棕色 */
      .zl-mini-info p {
           font-size: 0.85rem !important;
-          color: #C5A880 !important; 
+          color: #C5A880 !important;
           font-weight: 500 !important;
           margin-top: 3px !important;
      }
@@ -537,15 +569,153 @@ body {
           top: 42% !important;
           width: 32px !important;
           height: 32px !important;
-          background-color: rgba(26, 26, 26, 0.5) !important; /* 按鈕半透明化，柔和不突兀 */
+          background-color: rgba(26, 26, 26, 0.5) !important;
+          /* 按鈕半透明化，柔和不突兀 */
      }
-     .carousel-control-prev.mini-control { left: -5px !important; }
-     .carousel-control-next.mini-control { right: -5px !important; }
+
+     .carousel-control-prev.mini-control {
+          left: -5px !important;
+     }
+
+     .carousel-control-next.mini-control {
+          right: -5px !important;
+     }
 
      /* 品牌語錄中框：縮減間距比例 */
      .quote-box {
-          margin: 40px 10px 0 10px !important;
+          margin: 40px 15px 0 15px !important;
           padding: 25px 20px !important;
           border-radius: 6px !important;
      }
+}
+
+/* 讓超連結的文字顏色恢復成原本的優雅灰黑色，並去掉底線 */
+.concept-desc a {
+     color: #666666 !important;
+     /* 或是妳原本設定的顏色代碼 */
+     text-decoration: none !important;
+}
+
+/* 💡 終極魔法：讓超連結的點擊範圍，神不知鬼不覺地撐滿整張卡片 */
+.concept-card {
+     position: relative;
+     /* 讓卡片變成定位基準點 */
+     cursor: pointer;
+}
+
+.concept-desc a::after {
+     content: "";
+     position: absolute;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     z-index: 1;
+     /* 產生一個隱形的透明保護層，鋪滿整張卡片 */
+}
+
+/* ==========================================================================
+   8. 品牌質感頁尾專用樣式 (Footer Section - 全置中優雅版)
+   ========================================================================== */
+.brand-footer {
+     background-color: #1A1A1A; /* 延用網頁主視覺深色 */
+     color: #E0E0E0;
+     padding: 60px 0 30px 0;
+     font-family: 'Cinzel', 'Noto Serif TC', serif;
+     border-top: 1px solid rgba(230, 203, 179, 0.2);
+     text-align: center; /* 💡 核心：讓所有文字預設全部置中 */
+}
+
+.brand-footer-info {
+     margin-bottom: 15px;
+}
+
+.footer-logo {
+     color: #E6CBB3; /* 招牌金棕色 */
+     font-weight: 700;
+     letter-spacing: 3px;
+     margin-bottom: 10px;
+}
+
+.footer-logo span {
+     font-size: 0.65rem;
+     font-weight: 300;
+     letter-spacing: 1px;
+     display: block;
+     margin-top: 2px;
+}
+
+.footer-tagline {
+     font-size: 0.8rem;
+     color: #A0A0A0;
+     letter-spacing: 1px;
+     margin-bottom: 0;
+}
+
+.footer-title {
+     color: #E6CBB3;
+     font-size: 0.9rem;
+     letter-spacing: 2px;
+     font-weight: 600;
+     margin-top: 10px;
+     margin-bottom: 15px;
+}
+
+.footer-links {
+     list-style: none;
+     padding-left: 0;
+     margin-bottom: 0;
+}
+
+.footer-links li {
+     margin-bottom: 10px;
+}
+
+.footer-links li a {
+     color: #A0A0A0;
+     text-decoration: none;
+     font-size: 0.85rem;
+     letter-spacing: 1px;
+     transition: color 0.2s;
+}
+
+.footer-links li a:hover {
+     color: #E6CBB3;
+}
+
+/* 💡 讓社群圖標在置中框架下完美居中排列 */
+.footer-social-icons {
+     display: flex;
+     justify-content: center; 
+     gap: 16px;
+}
+
+.social-icon {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     width: 38px;
+     height: 38px;
+     background-color: rgba(255, 255, 255, 0.08);
+     color: #E6CBB3;
+     border-radius: 50%;
+     transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+     background-color: #E6CBB3;
+     color: #1A1A1A;
+     transform: translateY(-3px);
+}
+
+.footer-divider {
+     border-color: rgba(230, 203, 179, 0.15);
+     margin: 35px 0 25px 0;
+}
+
+.footer-copyright {
+     font-size: 0.75rem;
+     color: #777777;
+     letter-spacing: 1px;
+     margin-bottom: 0;
 }
