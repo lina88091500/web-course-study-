@@ -29,7 +29,7 @@
                               <li class="nav-item"><a class="nav-link" href="#">服務專區</a></li>
                               <li class="nav-item"><a class="nav-link" href="#">個人檔案</a></li>
                          </ul>
-                         <a class="btn btn-outline-light rounded-0 px-4 mt-2 mt-lg-0" href="#"
+                         <a class="btn btn-outline-light rounded-0 px-4 mt-2 mt-lg-0" href="./login.html"
                               style="border-color: #E6CBB3; color: #E6CBB3; font-size: 0.8rem; letter-spacing: 1px;">
                               登入
                          </a>
@@ -60,8 +60,8 @@
 
      <!-- ===================== Main Content ===================== -->
      <div class="container content-section">
-          <div class="row g-4">
-               <!-- 欄位 1：Bracelet 手鍊 -->
+          <!-- 四欄分類 -->
+          <div class="row g-2 g-md-4">
                <div class="col-6 col-md-3">
                     <div class="concept-card">
                          <div class="icon-wrapper">
@@ -75,7 +75,6 @@
                          <div class="concept-desc">手鍊 ｜ 腕間流光</div>
                     </div>
                </div>
-               <!-- 欄位 2：Earrings 耳環 -->
                <div class="col-6 col-md-3">
                     <div class="concept-card">
                          <div class="icon-wrapper">
@@ -91,7 +90,6 @@
                          <div class="concept-desc">耳環 ｜ 耳畔呢喃</div>
                     </div>
                </div>
-               <!-- 欄位 3：Necklace 項鍊 (這裡已修正 class) -->
                <div class="col-6 col-md-3">
                     <div class="concept-card">
                          <div class="icon-wrapper">
@@ -105,11 +103,10 @@
                          <div class="concept-desc">項鍊 ｜ 鎖骨微光</div>
                     </div>
                </div>
-               <!-- 欄位 4：Ring 戒指 -->
                <div class="col-6 col-md-3">
                     <div class="concept-card">
                          <div class="icon-wrapper">
-                              <div class="icon-gold-frame" style="border-radius: 4px; transform: rotate(0deg);"></div>
+                              <div class="icon-gold-frame" style="border-radius: 4px;"></div>
                               <svg height="35" style="position: relative; z-index: 2;" viewbox="0 0 50 50" width="35">
                                    <circle cx="25" cy="28" fill="none" r="10" stroke="#1A1A1A" stroke-width="1.2"></circle>
                                    <path d="M21 16 L29 16 L25 11 Z" fill="none" stroke="#1A1A1A" stroke-width="1"></path>
@@ -121,18 +118,22 @@
                </div>
           </div>
 
-          <!-- 熱賣輪播區塊 -->
-          <div class="my-5">
+          <!-- ===================== 每月熱銷 (精緻商品頁網格版) ===================== -->
+          <div class="my-4 my-md-5">
                <div class="text-center mb-4">
-                    <h3 style="letter-spacing: 4px; font-weight: 500; font-size: 1.4rem;">每月熱銷 ｜ MONTHLY MUST-HAVES</h3>
+                    <h3 style="letter-spacing: 3px; font-weight: 500; font-size: 1.1rem; color: #1A1A1A;">每月熱銷 ｜ MONTHLY MUST-HAVES</h3>
+                    <div style="width: 30px; height: 1px; background-color: #E6CBB3; margin: 10px auto 0 auto;"></div>
                </div>
+
                <div class="carousel slide" data-bs-interval="4000" data-bs-pause="hover" data-bs-ride="carousel" id="zlMultiProductCarousel">
                     <div class="carousel-inner">
-                         <!-- 第一組 4 個商品 -->
+                         
+                         <!-- 第一組商品 -->
                          <div class="carousel-item active">
-                              <div class="row g-3">
-                                   <div class="col-6 col-md-3">
-                                        <div class="zl-mini-card">
+                              <div class="row g-3 justify-content-center">
+                                   <!-- 商品 A (手機電腦都顯示) -->
+                                   <div class="col-12 col-md-3">
+                                        <div class="zl-mini-card p-2 rounded">
                                              <div class="zl-mini-img"><img alt="商品1" src="./image/爪鑲莫桑石活圍戒指.png" /></div>
                                              <div class="zl-mini-info">
                                                   <h6>爪鑲莫桑石活圍戒指</h6>
@@ -140,8 +141,9 @@
                                              </div>
                                         </div>
                                    </div>
-                                   <div class="col-6 col-md-3">
-                                        <div class="zl-mini-card">
+                                   <!-- 下面三個商品在手機版隱藏，電腦版展開為精美 4 欄 -->
+                                   <div class="col-md-3 d-none d-md-block">
+                                        <div class="zl-mini-card p-2 rounded">
                                              <div class="zl-mini-img"><img alt="商品2" src="./image/扭結愛心C字耳貼.png" /></div>
                                              <div class="zl-mini-info">
                                                   <h6>扭結愛心C字耳貼</h6>
@@ -149,8 +151,8 @@
                                              </div>
                                         </div>
                                    </div>
-                                   <div class="col-6 col-md-3">
-                                        <div class="zl-mini-card">
+                                   <div class="col-md-3 d-none d-md-block">
+                                        <div class="zl-mini-card p-2 rounded">
                                              <div class="zl-mini-img"><img alt="商品3" src="./image/愛心粉玉隨拼接小珍珠項鍊.png" /></div>
                                              <div class="zl-mini-info">
                                                   <h6>愛心粉玉隨拼接小珍珠項鍊</h6>
@@ -158,8 +160,8 @@
                                              </div>
                                         </div>
                                    </div>
-                                   <div class="col-6 col-md-3">
-                                        <div class="zl-mini-card">
+                                   <div class="col-md-3 d-none d-md-block">
+                                        <div class="zl-mini-card p-2 rounded">
                                              <div class="zl-mini-img"><img alt="商品4" src="./image/《靜影流光》｜溫柔與俐落的交織・雙鍊珍珠手鍊.png" /></div>
                                              <div class="zl-mini-info">
                                                   <h6>《靜影流光》雙鍊珍珠手鍊</h6>
@@ -169,11 +171,13 @@
                                    </div>
                               </div>
                          </div>
-                         <!-- 第二組 4 個商品 -->
+
+                         <!-- 第二組商品 -->
                          <div class="carousel-item">
-                              <div class="row g-3">
-                                   <div class="col-6 col-md-3">
-                                        <div class="zl-mini-card">
+                              <div class="row g-3 justify-content-center">
+                                   <!-- 商品 B (手機電腦都顯示) -->
+                                   <div class="col-12 col-md-3">
+                                        <div class="zl-mini-card p-2 rounded">
                                              <div class="zl-mini-img"><img alt="商品5" src="./image/雛菊珍珠碎銀手鍊.png" /></div>
                                              <div class="zl-mini-info">
                                                   <h6>雛菊珍珠碎銀手鍊</h6>
@@ -181,8 +185,8 @@
                                              </div>
                                         </div>
                                    </div>
-                                   <div class="col-6 col-md-3">
-                                        <div class="zl-mini-card">
+                                   <div class="col-md-3 d-none d-md-block">
+                                        <div class="zl-mini-card p-2 rounded">
                                              <div class="zl-mini-img"><img alt="商品6" src="./image/Double Line Star Bracelet.png" /></div>
                                              <div class="zl-mini-info">
                                                   <h6>Double Line Star Bracelet</h6>
@@ -190,8 +194,8 @@
                                              </div>
                                         </div>
                                    </div>
-                                   <div class="col-6 col-md-3">
-                                        <div class="zl-mini-card">
+                                   <div class="col-md-3 d-none d-md-block">
+                                        <div class="zl-mini-card p-2 rounded">
                                              <div class="zl-mini-img"><img alt="商品7" src="./image/水滴鑽石垂墜耳貼 (藍).png" /></div>
                                              <div class="zl-mini-info">
                                                   <h6>水滴鑽石垂墜耳貼 (藍)</h6>
@@ -199,8 +203,8 @@
                                              </div>
                                         </div>
                                    </div>
-                                   <div class="col-6 col-md-3">
-                                        <div class="zl-mini-card">
+                                   <div class="col-md-3 d-none d-md-block">
+                                        <div class="zl-mini-card p-2 rounded">
                                              <div class="zl-mini-img"><img alt="商品8" src="./image/《光的交響曲》✨ 爪鑲拼接幾何造型項鍊 ✨.png" /></div>
                                              <div class="zl-mini-info">
                                                   <h6>《光的交響曲》幾何造型項鍊</h6>
@@ -210,8 +214,10 @@
                                    </div>
                               </div>
                          </div>
+
                     </div>
 
+                    <!-- 左右箭頭按鈕 -->
                     <button class="carousel-control-prev mini-control" data-bs-slide="prev" data-bs-target="#zlMultiProductCarousel" type="button">
                          <span aria-hidden="true" class="carousel-control-prev-icon"></span>
                     </button>
@@ -221,9 +227,10 @@
                </div>
           </div>
 
-          <div class="quote-box shadow-sm">
-               <h3 style="font-size: 1.1rem; letter-spacing: 3px; margin-bottom: 20px; color: #E6CBB3; font-weight: bold;">Zelyber</h3>
-               <p class="mb-0" style="font-size: 0.9rem; line-height: 2; color: #4A4A4A; letter-spacing: 1.5px;">
+          <!-- 品牌語錄 -->
+          <div class="quote-box shadow-sm mx-1">
+               <h3 style="font-size: 1.05rem; letter-spacing: 3px; margin-bottom: 12px; color: #E6CBB3; font-weight: bold;">Zelyber</h3>
+               <p class="mb-0" style="font-size: 0.8rem; line-height: 1.8; color: #4A4A4A; letter-spacing: 1px;">
                     取自「Zest」(熱情)與「Liberty」(自由)，象徵追求美與心靈自由的初心。<br />
                     讓每件飾品不僅承載記憶，更回饋社會，延續匠心與愛心。
                </p>
@@ -232,3 +239,54 @@
 </body>
 
 </html>
+
+<!-- 檢查與控制登入/登出狀態腳本 -->
+     <script>
+          document.addEventListener("DOMContentLoaded", function () {
+               const authArea = document.getElementById("nav-auth-area");
+
+               // 將原本的登入按鈕 HTML 結構存成變數，方便隨時切換回來
+               const loginBtnHtml = `
+                    <a class="btn btn-outline-light rounded-0 px-4" href="./login.html"
+                       style="border-color: #E6CBB3; color: #E6CBB3; font-size: 0.8rem; letter-spacing: 1px;">
+                       登入
+                    </a>
+               `;
+
+               // 定義一個檢查狀態的函式
+               function checkAuthStatus() {
+                    const userSession = localStorage.getItem("zl_user");
+
+                    if (userSession) {
+                         // 1. 如果有登入資料：顯示妳好與【登出鈕】
+                         authArea.innerHTML = `
+                              <span class="me-3" style="color: #E6CBB3; font-size: 0.85rem; letter-spacing: 1px;">
+                                   妳好，${userSession}
+                              </span>
+                              <a class="btn btn-outline-secondary rounded-0 px-3" href="#" id="logout-btn"
+                                   style="border-color: rgba(230,203,179,0.3); color: #A0A0A0; font-size: 0.75rem; letter-spacing: 1px;">
+                                   登出
+                              </a>
+                         `;
+
+                         // 2. 幫這個【登出鈕】綁定點擊事件
+                         document.getElementById("logout-btn").addEventListener("click", function (e) {
+                              e.preventDefault();
+                              
+                              // 清除瀏覽器的登入紀錄
+                              localStorage.removeItem("zl_user");
+                              alert("已安全登出 ZL& accessories");
+                              
+                              // 【關鍵修正】點擊登出後，立刻把區塊變回【登入鈕】，完全不拖泥帶水
+                              authArea.innerHTML = loginBtnHtml;
+                         });
+                    } else {
+                         // 如果本來就沒登入，就維持標準的登入鈕
+                         authArea.innerHTML = loginBtnHtml;
+                    }
+               }
+
+               // 網頁一載入立刻執行檢查
+               checkAuthStatus();
+          });
+     </script>
