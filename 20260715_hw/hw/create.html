@@ -119,10 +119,10 @@
                <div class="collapse navbar-collapse" id="mynavbar">
                     <ul class="navbar-nav me-auto">
                          <li class="nav-item">
-                              <a class="nav-link" href="../student/index.html">待收養貓咪</a>
+                              <a class="nav-link" href="../index.html">待收養貓咪</a>
                          </li>
                          <li class="nav-item">
-                              <a class="nav-link" href="../teacher/index.html">志工夥伴</a>
+                              <a class="nav-link" href="">志工夥伴</a>
                          </li>
                          <li class="nav-item">
                               <a class="nav-link" href="javascript:void(0)">領養諮詢</a>
@@ -141,13 +141,16 @@
           <form action="./store.html" method="GET" enctype="multipart/form-data">
                <div class="mb-3 mt-4">
                     <label for="name">貓咪名字：</label>
-                    <input type="text" class="form-control" id="name" placeholder="請輸入貓咪名字" name="name" required>
+                    <!-- 💡 拔掉了 required，現在不輸入名字也能送出測試 -->
+                    <input type="text" class="form-control" id="name" placeholder="請輸入貓咪名字" name="name">
                </div>
                <div class="mb-3">
                     <label for="image">上傳照片：</label>
-                    <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+                    <!-- 💡 拔掉了 required，現在不上傳照片也能送出測試 -->
+                    <input type="file" class="form-control" id="image" name="image" accept="image/*">
                </div>
                <button type="submit" class="btn btn-primary">確認登記</button>
+               <a href="../admin.html" class="btn btn-primary ms-2">返回</a>
           </form>
      </div>
 

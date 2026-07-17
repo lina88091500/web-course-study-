@@ -81,6 +81,25 @@
                margin-left: 8px;
           }
 
+          /* 登出按鈕專用樣式，使用柔和的紅色 */
+          .navbar .btn-danger {
+               display: inline-block;
+               background: #a84a4a;
+               color: #fff !important;
+               border: none;
+               border-radius: 6px;
+               font-size: 14px;
+               font-weight: 500;
+               padding: 6px 16px;
+               margin-left: 8px;
+               text-decoration: none;
+               transition: background 0.2s;
+          }
+
+          .navbar .btn-danger:hover {
+               background: #913d3d;
+          }
+
           .text-end a {
                padding: 8px 18px;
           }
@@ -169,25 +188,38 @@
 
      <nav class="navbar navbar-expand-sm navbar-light bg-white">
           <div class="container-fluid">
-               <a class="navbar-brand" href="javascript:void(0)">🐾 尋找貓咪的家</a>
+               <a class="navbar-brand" href="./index.html">🐾 尋找貓咪的家</a>
                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
                     <span class="navbar-toggler-icon"></span>
                </button>
                <div class="collapse navbar-collapse" id="mynavbar">
                     <ul class="navbar-nav me-auto">
                          <li class="nav-item">
-                              <a class="nav-link" href="../student/index.html">待收養貓咪</a>
+                              <a class="nav-link" href="./index.html">待收養貓咪</a>
                          </li>
                          <li class="nav-item">
-                              <a class="nav-link" href="../teacher/index.html">志工夥伴</a>
+                              <a class="nav-link" href="">志工夥伴</a>
                          </li>
                          <li class="nav-item">
                               <a class="nav-link" href="javascript:void(0)">領養諮詢</a>
                          </li>
                     </ul>
-                    <form class="d-flex">
-                         <input class="form-control" type="text" placeholder="搜尋貓咪...">
+
+                    <!-- 右側搜尋與登入按鈕區 -->
+                    <!-- 關鍵修正：加上 flex-wrap 讓手機版會自動換行，gap-2 讓元素之間有固定漂亮間距，mt-3 md-lg-0 讓手機版有上方間距 -->
+                    <form class="d-flex align-items-center flex-wrap gap-2 m-0 mt-3 mt-sm-0">
+                         <!-- 這裡保持你原本裡面的 input、button、span 等內容都不用變 -->
+                         <input class="form-control" type="text" placeholder="搜尋貓咪..."
+                              style="flex: 1; min-width: 150px;">
                          <button class="btn btn-primary" type="button">搜尋</button>
+
+                         <a href="./front/login.html" id="guest-btn" class="btn btn-primary">登入</a>
+
+                         <span id="admin-welcome" class="d-none"
+                              style="color: #7d756d; font-size: 14px; white-space: nowrap; font-weight: 500;">
+                              🔑 管理員
+                         </span>
+                         <button type="button" id="logout-btn" class="btn btn-danger d-none">登出</button>
                     </form>
                </div>
           </div>
@@ -197,7 +229,7 @@
           <h2>待領養貓咪列表</h2>
           <p>為流浪的貓咪尋找一個溫暖的避風港，歡迎登記或進行狀態管理：</p>
           <div class="text-end">
-               <a href="./create.html">＋ 登記新貓咪</a>
+               <a href="./hw/create.html">＋ 登記新貓咪</a>
           </div>
           <table class="table table-striped mt-5">
                <thead>
@@ -217,8 +249,8 @@
                          </td>
                          <td>阿福 (Fuku)</td>
                          <td>
-                              <a href="./edit.html?id=1">修改資料</a>
-                              <a href="./del.html?id=1">已被收養</a>
+                              <a href="./hw/edit.html?id=1">修改資料</a>
+                              <a href="./hw/del.html?id=1">已被收養</a>
                          </td>
                     </tr>
                     <tr>
@@ -229,8 +261,8 @@
                          </td>
                          <td>咪咪 (Mimi)</td>
                          <td>
-                              <a href="./edit.html?id=2">修改資料</a>
-                              <a href="./del.html?id=2">已被收養</a>
+                              <a href="./hw/edit.html?id=2">修改資料</a>
+                              <a href="./hw/del.html?id=2">已被收養</a>
                          </td>
                     </tr>
                     <tr>
@@ -241,8 +273,8 @@
                          </td>
                          <td>歐歐 (Oreo)</td>
                          <td>
-                              <a href="./edit.html?id=3">修改資料</a>
-                              <a href="./del.html?id=3">已被收養</a>
+                              <a href="./hw/edit.html?id=3">修改資料</a>
+                              <a href="./hw/del.html?id=3">已被收養</a>
                          </td>
                     </tr>
                     <tr>
@@ -253,8 +285,8 @@
                          </td>
                          <td>炭炭 (Tantan)</td>
                          <td>
-                              <a href="./edit.html?id=4">修改資料</a>
-                              <a href="./del.html?id=4">已被收養</a>
+                              <a href="./hw/edit.html?id=4">修改資料</a>
+                              <a href="./hw/del.html?id=4">已被收養</a>
                          </td>
                     </tr>
                     <tr>
@@ -265,13 +297,59 @@
                          </td>
                          <td>拿鐵 (Latte)</td>
                          <td>
-                              <a href="./edit.html?id=5">修改資料</a>
-                              <a href="./del.html?id=5">已被收養</a>
+                              <a href="./hw/edit.html?id=5">修改資料</a>
+                              <a href="./hw/del.html?id=5">已被收養</a>
                          </td>
                     </tr>
                </tbody>
           </table>
      </div>
+
+     <!-- 狀態控制與動態姓名讀取 JavaScript -->
+     <script>
+          document.addEventListener("DOMContentLoaded", function () {
+               // 1. 讀取瀏覽器在地儲存的狀態與登入者名稱
+               const isLoggedIn = localStorage.getItem("isLoggedIn");
+               const adminName = localStorage.getItem("adminName");
+
+               const guestBtn = document.getElementById("guest-btn");
+               const adminWelcome = document.getElementById("admin-welcome");
+               const logoutBtn = document.getElementById("logout-btn");
+
+               // 2. 判斷是否為登入狀態並變更樣式
+               if (isLoggedIn === "true") {
+                    // 隱藏登入按鈕
+                    guestBtn.classList.add("d-none");
+
+                    // 檢查有沒有存到名字，有的話就動態帶入
+                    if (adminName) {
+                         adminWelcome.innerHTML = `🔑 管理員 ${adminName}`;
+                    } else {
+                         adminWelcome.innerHTML = `🔑 管理員`;
+                    }
+
+                    // 顯示問候語與登出按鈕
+                    adminWelcome.classList.remove("d-none");
+                    logoutBtn.classList.remove("d-none");
+               } else {
+                    // 訪客狀態：顯示登入按鈕，隱藏管理員介面
+                    guestBtn.classList.remove("d-none");
+                    adminWelcome.classList.add("d-none");
+                    logoutBtn.classList.add("d-none");
+               }
+
+               // 3. 處理點擊登出
+               if (logoutBtn) {
+                    logoutBtn.addEventListener("click", function () {
+                         // 同步清除狀態與名字
+                         localStorage.removeItem("isLoggedIn");
+                         localStorage.removeItem("adminName");
+                         alert("已成功登出管理系統！");
+                         window.location.reload(); // 重新整理頁面回復原樣
+                    });
+               }
+          });
+     </script>
 
 </body>
 
