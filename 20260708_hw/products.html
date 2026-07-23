@@ -184,6 +184,55 @@
                background-color: #fff;
                border-color: #dee2e6;
           }
+
+          /* 商品卡片相對定位，讓愛心可以定位在右上角 */
+          .zl-mini-card {
+               position: relative;
+          }
+
+          /* 愛心收藏按鈕樣式 */
+          .favorite-btn {
+               position: absolute;
+               top: 12px;
+               right: 12px;
+               z-index: 5;
+               background: rgba(255, 255, 255, 0.85);
+               backdrop-filter: blur(4px);
+               border: none;
+               border-radius: 50%;
+               width: 32px;
+               height: 32px;
+               display: flex;
+               align-items: center;
+               justify-content: center;
+               color: #8C7B6E;
+               cursor: pointer;
+               box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+               transition: all 0.25s ease;
+          }
+
+          .favorite-btn:hover {
+               transform: scale(1.1);
+               background: #ffffff;
+               color: #e25555;
+          }
+
+          /* 收藏選取狀態 */
+          .favorite-btn.active {
+               color: #e25555;
+               background: #ffffff;
+          }
+
+          .favorite-btn svg {
+               width: 16px;
+               height: 16px;
+               transition: transform 0.2s ease;
+          }
+
+          .favorite-btn.active svg {
+               fill: #e25555;
+               /* 點擊後填滿顏色 */
+          }
      </style>
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -245,7 +294,7 @@
                <div class="col-lg-3 col-md-4">
                     <div class="sticky-top" style="top: 100px; z-index: 10;">
 
-                         <!-- 1. 商品分類區塊 (✨ 已修正 style 語法錯誤) -->
+                         <!-- 1. 商品分類區塊 -->
                          <div class="mb-3">
                               <div class="filter-title" data-bs-toggle="collapse" data-bs-target="#collapseCategory"
                                    aria-expanded="true"
@@ -255,15 +304,18 @@
                               <div class="collapse show" id="collapseCategory">
                                    <div class="pt-1">
                                         <a href="#" class="filter-link filter-btn active" data-filter="all">全部商品 (8)</a>
-                                        <a href="#" class="filter-link filter-btn" data-filter="bracelet">BRACELET 手鍊</a>
-                                        <a href="#" class="filter-link filter-btn" data-filter="earrings">EARRINGS 耳環</a>
-                                        <a href="#" class="filter-link filter-btn" data-filter="necklace">NECKLACE 項鍊</a>
+                                        <a href="#" class="filter-link filter-btn" data-filter="bracelet">BRACELET
+                                             手鍊</a>
+                                        <a href="#" class="filter-link filter-btn" data-filter="earrings">EARRINGS
+                                             耳環</a>
+                                        <a href="#" class="filter-link filter-btn" data-filter="necklace">NECKLACE
+                                             項鍊</a>
                                         <a href="#" class="filter-link filter-btn" data-filter="ring">RING 戒指</a>
                                    </div>
                               </div>
                          </div>
 
-                         <!-- 2. 材質工藝區塊 (✨ 已修正 style 語法錯誤) -->
+                         <!-- 2. 材質工藝區塊 -->
                          <div class="mb-4">
                               <div class="filter-title" data-bs-toggle="collapse" data-bs-target="#collapseMaterial"
                                    aria-expanded="true"
@@ -309,12 +361,23 @@
 
                          <!-- 商品 1：爪鑲莫桑石活圍戒指 -->
                          <div class="col-6 col-lg-4 product-item" data-category="ring">
-                              <div class="zl-mini-card shadow-sm p-2 rounded">
+                              <div class="zl-mini-card shadow-sm p-2 rounded" data-href="product-detail.html?id=1"
+                                   data-product-id="prod-001">
+
+                                   <!-- 右上角愛心收藏按鈕 -->
+                                   <button type="button" class="favorite-btn" title="加入收藏" aria-label="收藏商品">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                             stroke="currentColor" stroke-width="2">
+                                             <path stroke-linecap="round" stroke-linejoin="round"
+                                                  d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 21.364l-7.682-7.682a4.5 4.5 0 010-6.364z" />
+                                        </svg>
+                                   </button>
+
                                    <div class="zl-mini-img"><img alt="爪鑲莫桑石活圍戒指" src="./image/爪鑲莫桑石活圍戒指.png" /></div>
                                    <div class="zl-mini-info">
                                         <h6>爪鑲莫桑石活圍戒指</h6>
                                         <p class="mb-1">NT$ 1,580</p>
-                                        <small class="text-muted" style="font-size:0.65rem;">✨ 點擊看氛圍介紹</small>
+                                        <small class="text-muted" style="font-size:0.65rem;">✨ 點擊前往商品頁</small>
                                    </div>
                                    <div class="product-detail-story">
                                         細緻抓鑲工藝將莫桑石牢牢環抱，綻放如星辰般不滅的火彩。活圍設計，隨心定義屬於你的指尖故事。<br><br>
@@ -325,7 +388,17 @@
 
                          <!-- 商品 2：扭結愛心C字耳貼 -->
                          <div class="col-6 col-lg-4 product-item" data-category="earrings">
-                              <div class="zl-mini-card shadow-sm p-2 rounded">
+                              <div class="zl-mini-card shadow-sm p-2 rounded" data-href="product-detail.html?id=2"
+                                   data-product-id="prod-002">
+
+                                   <!-- 右上角愛心收藏按鈕 -->
+                                   <button type="button" class="favorite-btn" title="加入收藏" aria-label="收藏商品">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                             stroke="currentColor" stroke-width="2">
+                                             <path stroke-linecap="round" stroke-linejoin="round"
+                                                  d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 21.364l-7.682-7.682a4.5 4.5 0 010-6.364z" />
+                                        </svg>
+                                   </button>
                                    <div class="zl-mini-img"><img alt="扭結愛心C字耳貼" src="./image/扭結愛心C字耳貼.png" /></div>
                                    <div class="zl-mini-info">
                                         <h6>扭結愛心C字耳貼</h6>
@@ -341,7 +414,17 @@
 
                          <!-- 商品 3：愛心粉玉隨拼接小珍珠項鍊 -->
                          <div class="col-6 col-lg-4 product-item" data-category="necklace">
-                              <div class="zl-mini-card shadow-sm p-2 rounded">
+                              <div class="zl-mini-card shadow-sm p-2 rounded" data-href="product-detail.html?id=3"
+                                   data-product-id="prod-003">
+
+                                   <!-- 右上角愛心收藏按鈕 -->
+                                   <button type="button" class="favorite-btn" title="加入收藏" aria-label="收藏商品">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                             stroke="currentColor" stroke-width="2">
+                                             <path stroke-linecap="round" stroke-linejoin="round"
+                                                  d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 21.364l-7.682-7.682a4.5 4.5 0 010-6.364z" />
+                                        </svg>
+                                   </button>
                                    <div class="zl-mini-img"><img alt="愛心粉玉隨拼接小珍珠項鍊" src="./image/愛心粉玉隨拼接小珍珠項鍊.png" />
                                    </div>
                                    <div class="zl-mini-info">
@@ -372,13 +455,15 @@
                                         onsubmit="alert('感謝你的填寫，ZL& 專屬飾品美學提案已為你保留！🤎');">
                                         <div class="row">
                                              <div class="col-6 mb-3">
-                                                  <label for="consult_name" class="form-label form-label-custom">你的稱呼 *</label>
+                                                  <label for="consult_name" class="form-label form-label-custom">你的稱呼
+                                                       *</label>
                                                   <input type="text" name="entry.682292784" id="consult_name"
                                                        class="form-control form-control-custom py-1" required
                                                        placeholder="例如：Lina">
                                              </div>
                                              <div class="col-6 mb-3">
-                                                  <label for="consult_email" class="form-label form-label-custom">聯絡信箱 *</label>
+                                                  <label for="consult_email" class="form-label form-label-custom">聯絡信箱
+                                                       *</label>
                                                   <input type="email" name="entry.49267800" id="consult_email"
                                                        class="form-control form-control-custom py-1" required
                                                        placeholder="Email">
@@ -464,7 +549,17 @@
 
                          <!-- 商品 4：《靜影流光》雙鍊珍珠手鍊 -->
                          <div class="col-6 col-lg-4 product-item" data-category="bracelet">
-                              <div class="zl-mini-card shadow-sm p-2 rounded">
+                              <div class="zl-mini-card shadow-sm p-2 rounded" data-href="product-detail.html?id=4"
+                                   data-product-id="prod-004">
+
+                                   <!-- 右上角愛心收藏按鈕 -->
+                                   <button type="button" class="favorite-btn" title="加入收藏" aria-label="收藏商品">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                             stroke="currentColor" stroke-width="2">
+                                             <path stroke-linecap="round" stroke-linejoin="round"
+                                                  d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 21.364l-7.682-7.682a4.5 4.5 0 010-6.364z" />
+                                        </svg>
+                                   </button>
                                    <div class="zl-mini-img"><img alt="雙鍊珍珠手鍊"
                                              src="./image/《靜影流光》｜溫柔與俐落的交織・雙鍊珍珠手鍊.png" /></div>
                                    <div class="zl-mini-info">
@@ -482,7 +577,17 @@
 
                          <!-- 商品 5：雛菊珍珠碎銀手鍊 -->
                          <div class="col-6 col-lg-4 product-item" data-category="bracelet">
-                              <div class="zl-mini-card shadow-sm p-2 rounded">
+                              <div class="zl-mini-card shadow-sm p-2 rounded" data-href="product-detail.html?id=5"
+                                   data-product-id="prod-005">
+
+                                   <!-- 右上角愛心收藏按鈕 -->
+                                   <button type="button" class="favorite-btn" title="加入收藏" aria-label="收藏商品">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                             stroke="currentColor" stroke-width="2">
+                                             <path stroke-linecap="round" stroke-linejoin="round"
+                                                  d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 21.364l-7.682-7.682a4.5 4.5 0 010-6.364z" />
+                                        </svg>
+                                   </button>
                                    <div class="zl-mini-img"><img alt="雛菊珍珠碎銀手鍊" src="./image/雛菊珍珠碎銀手鍊.png" /></div>
                                    <div class="zl-mini-info">
                                         <h6>雛菊珍珠碎銀手鍊</h6>
@@ -498,7 +603,17 @@
 
                          <!-- 商品 6：Double Line Star Bracelet -->
                          <div class="col-6 col-lg-4 product-item" data-category="bracelet">
-                              <div class="zl-mini-card shadow-sm p-2 rounded">
+                              <div class="zl-mini-card shadow-sm p-2 rounded" data-href="product-detail.html?id=6"
+                                   data-product-id="prod-006">
+
+                                   <!-- 右上角愛心收藏按鈕 -->
+                                   <button type="button" class="favorite-btn" title="加入收藏" aria-label="收藏商品">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                             stroke="currentColor" stroke-width="2">
+                                             <path stroke-linecap="round" stroke-linejoin="round"
+                                                  d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 21.364l-7.682-7.682a4.5 4.5 0 010-6.364z" />
+                                        </svg>
+                                   </button>
                                    <div class="zl-mini-img"><img alt="Double Line Star Bracelet"
                                              src="./image/Double Line Star Bracelet.png" /></div>
                                    <div class="zl-mini-info">
@@ -571,7 +686,7 @@
                          <p class="footer-tagline">飾品是一種未完待續的氛圍</p>
                     </div>
 
-                    <!-- 中間：快速連結（精簡版） -->
+                    <!-- 中間：快速連結 -->
                     <div class="col-6 col-md-4">
                          <h6 class="footer-title">服務指南</h6>
                          <ul class="footer-links">
@@ -581,19 +696,17 @@
                          </ul>
                     </div>
 
-                    <!-- 右側：社群追蹤 (✨ 已將 LINE 欄位移除並換成 Facebook 圓形 icon) -->
+                    <!-- 右側：社群追蹤 -->
                     <div class="col-6 col-md-4">
                          <h6 class="footer-title">追蹤 ZL&</h6>
                          <div class="footer-social-icons">
-                              <!-- Instagram 連結 -->
                               <a href="https://reurl.cc/Le1eq7" target="_blank" class="social-icon" title="Instagram">
                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                                         class="bi bi-instagram" viewBox="0 0 16 16">
                                         <path
-                                             d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.444-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334" />
+                                             d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.444-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92.c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334" />
                                    </svg>
                               </a>
-                              <!-- Facebook 連結 (✨ 已經替換掉原本的 LINE 連結與樣式囉) -->
                               <a href="https://reurl.cc/RRdRE9" target="_blank" class="social-icon" title="Facebook">
                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                                         class="bi bi-facebook" viewBox="0 0 16 16">
@@ -620,22 +733,22 @@
      <!-- ===================== JavaScript 篩選與動態分頁邏輯 ===================== -->
      <script>
           document.addEventListener("DOMContentLoaded", function () {
-               const itemsPerPage = 6; 
-               let currentPage = 1;   
-               let currentFilter = "all"; 
+               const itemsPerPage = 6;
+               let currentPage = 1;
+               let currentFilter = "all";
 
                const filterBtns = document.querySelectorAll(".filter-btn");
                const productItems = document.querySelectorAll(".product-item");
                const paginationContainer = document.getElementById("pagination-dynamic-controls");
                const countSummary = document.getElementById("product-count-summary");
 
-               // 頁面初次載入，初始化分頁顯示 (✨ 這裡保留即可)
+               // 頁面初次載入，初始化分頁顯示
                updateProductDisplay();
 
                // ======= 自動偵測首頁傳過來的分類標籤 =======
-               const currentHash = window.location.hash; 
+               const currentHash = window.location.hash;
                if (currentHash) {
-                    const targetFilter = currentHash.replace('#', ''); 
+                    const targetFilter = currentHash.replace('#', '');
                     const targetBtn = document.querySelector(`.filter-btn[data-filter="${targetFilter}"]`);
 
                     if (targetBtn) {
@@ -655,9 +768,9 @@
                          const cat = item.getAttribute("data-category");
                          if (currentFilter === "all" || cat === currentFilter) {
                               visibleItems.push(item);
-                              item.style.display = "none"; 
+                              item.style.display = "none";
                          } else {
-                              item.style.display = "none"; 
+                              item.style.display = "none";
                          }
                     });
 
@@ -760,18 +873,35 @@
                     });
                });
 
-               // 2. 點擊商品卡片展開詳細故事介紹
+               // 💡 新增：綁定商品圖片點擊跳轉事件
+               const productImgs = document.querySelectorAll(".zl-mini-img");
+               productImgs.forEach(imgContainer => {
+                    imgContainer.addEventListener("click", function (e) {
+                         e.stopPropagation(); // 阻止冒泡，避免觸發展開故事介紹
+
+                         // 取得卡片上的 data-href
+                         const card = this.closest(".zl-mini-card");
+                         const targetUrl = card ? card.getAttribute("data-href") : null;
+
+                         if (targetUrl) {
+                              window.location.href = targetUrl;
+                         }
+                    });
+               });
+
+               // 點擊卡片其他區域（如文字或空白處）展開詳細故事介紹
                const productCards = document.querySelectorAll(".zl-mini-card");
                productCards.forEach(card => {
-                    card.addEventListener("click", function () {
+                    card.addEventListener("click", function (e) {
+                         // 如果點到愛心按鈕則不展開故事
+                         if (e.target.closest(".favorite-btn")) return;
+
                          const storySection = this.querySelector(".product-detail-story");
                          if (storySection) {
                               storySection.classList.toggle("show");
                          }
                     });
                });
-
-               // ✨ 刪除了原本在最尾端重複呼叫的 updateProductDisplay(); 區塊
           });
      </script>
 
